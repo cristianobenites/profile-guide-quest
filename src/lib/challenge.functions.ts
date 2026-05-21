@@ -64,15 +64,15 @@ ${respostas}
 REGRAS DA PROVA:
 - Exatamente 10 questões.
 - 7 questões de múltipla escolha (4 alternativas A-D, com UMA correta) + 3 questões abertas.
-- Calibre a dificuldade ao nível do aluno: iniciantes recebem fundamentos (o que é IA, prompt, alucinação); intermediários recebem ML/LLMs/uso prático; avançados recebem engenharia de prompt, limites técnicos, casos de uso reais.
-- Cubra os tópicos onde o aluno demonstrou MAIS LACUNAS na triagem.
-- Português brasileiro, linguagem clara e direta.
+- Calibre a dificuldade ao nível da pessoa: iniciantes recebem fundamentos (o que é IA, prompt, alucinação); intermediários recebem ML/LLMs/uso prático; avançados recebem engenharia de prompt, limites técnicos, casos de uso reais.
+- Cubra os tópicos onde a pessoa demonstrou MAIS LACUNAS na triagem.
+- Português brasileiro, linguagem clara e direta, em SEGUNDA PESSOA ("você").
 - Não copie literalmente perguntas da triagem.
 
 Retorne EXCLUSIVAMENTE um JSON válido (sem markdown, sem texto extra) no formato:
 {
   "title": "Título curto da prova personalizada",
-  "introduction": "1-2 frases explicando por que essa prova foi calibrada para esse aluno",
+  "introduction": "1-2 frases em segunda pessoa explicando por que essa prova foi calibrada para você",
   "level": "iniciante | intermediário | avançado",
   "questions": [
     {
