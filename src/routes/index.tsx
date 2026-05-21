@@ -19,13 +19,13 @@ function Index() {
     const doc =
       tipo === "perfil"
         ? generateBlankQuestionnairePDF(
-            "Perfil e Comportamento com IA",
-            "Questionário Diagnóstico — Parte 1",
+            "Triagem de Conhecimento em IA",
+            "Etapa 1 — Triagem Diagnóstica",
             perfilQuestions,
           )
         : generateBlankQuestionnairePDF(
-            "Avaliação Técnica em IA",
-            "Questionário Diagnóstico — Parte 2",
+            "Prova de IA",
+            "Etapa 2 — Avaliação com Correção por IA",
             tecnicoQuestions,
           );
     doc.save(`questionario-${tipo}-axioma.pdf`);
