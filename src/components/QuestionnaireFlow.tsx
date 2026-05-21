@@ -84,13 +84,13 @@ export function QuestionnaireFlow({ tipo, title, questions }: Props) {
     return (
       <div className="max-w-2xl mx-auto px-6 py-20 animate-in">
         <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary mb-6 block font-medium">
-          {tipo === "perfil" ? "Parte 1 · Perfil Comportamental" : "Parte 2 · Avaliação Técnica"}
+          {tipo === "perfil" ? "Etapa 1 · Triagem de Conhecimento" : "Etapa 2 · Prova de IA"}
         </span>
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-[0.95] mb-6">{title}</h1>
         <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
           {tipo === "perfil"
-            ? "Vamos entender seu comportamento e relação com ferramentas de Inteligência Artificial. Sem certo ou errado — só responda com sinceridade."
-            : "Vamos medir seu conhecimento técnico atual sobre IA. Sem pressão, é só um diagnóstico para personalizar sua jornada."}
+            ? "10 perguntas rápidas para entender se você já tem (ou não) conhecimento sobre IA. Sem certo ou errado — responda com sinceridade para que a gente saiba por onde começar com você."
+            : "Prova com 10 questões sobre fundamentos de IA. Você pode responder agora, online, ou baixar o PDF, responder offline e enviar depois para correção e feedback gerados por IA."}
         </p>
         <div className="bg-card border border-border rounded-2xl p-6 mb-6">
           <label className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-3">
