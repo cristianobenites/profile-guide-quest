@@ -105,29 +105,29 @@ function Index() {
         <section className="py-24 border-b border-border">
           <div className="text-center mb-16">
             <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary mb-4 block">
-              Dois questionários
+              Duas etapas
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">Comece por onde preferir</h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">Triagem primeiro, prova depois</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Perfil */}
+            {/* Triagem */}
             <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary transition-all group">
               <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
                 <Brain className="size-6 text-primary" />
               </div>
-              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Parte 1</span>
-              <h3 className="text-2xl font-bold mt-2 mb-3">Perfil Comportamental</h3>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Etapa 1</span>
+              <h3 className="text-2xl font-bold mt-2 mb-3">Triagem de Conhecimento</h3>
               <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
-                11 perguntas sobre como você se relaciona com IA, seus hábitos, percepções éticas e
-                expectativas. Inclui reflexões abertas analisadas pela IA.
+                10 perguntas rápidas para entender se você já tem (ou não) bagagem em IA: contato com ferramentas,
+                vocabulário, prática e expectativas.
               </p>
               <div className="flex flex-wrap gap-2">
                 <Link
                   to="/perfil"
                   className="bg-foreground text-background px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-primary transition-all"
                 >
-                  Responder online
+                  Fazer triagem online
                 </Link>
                 <button
                   onClick={() => downloadBlank("perfil")}
@@ -138,16 +138,16 @@ function Index() {
               </div>
             </div>
 
-            {/* Técnico */}
+            {/* Prova */}
             <div className="bg-card border border-border rounded-2xl p-8 hover:border-primary transition-all group">
               <div className="size-12 rounded-lg bg-accent/10 flex items-center justify-center mb-6">
                 <Sparkles className="size-6 text-accent" />
               </div>
-              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Parte 2</span>
-              <h3 className="text-2xl font-bold mt-2 mb-3">Avaliação Técnica</h3>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Etapa 2</span>
+              <h3 className="text-2xl font-bold mt-2 mb-3">Prova de IA</h3>
               <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
-                15 perguntas sobre fundamentos de IA, Machine Learning, Deep Learning, LLMs e
-                aplicações práticas. Com pontuação objetiva.
+                10 questões (7 múltipla escolha + 3 abertas) sobre fundamentos, ML, LLMs e prompts.
+                Responda online ou baixe em PDF, preencha offline e envie para correção pela IA.
               </p>
               <div className="flex flex-wrap gap-2">
                 <Link
@@ -167,9 +167,9 @@ function Index() {
           </div>
 
           <div className="mt-12 p-6 bg-foreground/5 border border-border rounded-xl text-center text-sm text-muted-foreground">
-            Já respondeu um questionário em PDF?{" "}
+            Já respondeu a prova em PDF?{" "}
             <Link to="/upload" className="text-primary font-bold hover:underline">
-              Envie aqui para análise
+              Envie aqui para correção e feedback
             </Link>
             .
           </div>
