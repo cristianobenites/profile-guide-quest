@@ -148,63 +148,76 @@ export function ReportView({ result, tipo, studentName, questions, answers }: Pr
               </Link>
             </div>
 
-            {tipo === "perfil" && questions && answers && (
-              <section className="mt-12 p-8 border-2 border-primary/30 bg-primary/5 rounded-2xl">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary font-bold block mb-3">
-                  Próxima Etapa · Prova Personalizada
-                </span>
-                <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">
-                  A IA vai montar uma prova só pra você
-                </h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Com base no seu perfil e nas lacunas identificadas na triagem, a IA vai gerar uma
-                  prova de 10 questões (7 múltipla escolha + 3 abertas) calibrada para o seu nível.
-                  Ao final você recebe correção e feedback personalizados.
-                </p>
-                <button
-                  onClick={handleGenerateChallenge}
-                  disabled={generating}
-                  className="flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {generating ? (
-                    <>
-                      <Loader2 className="size-4 animate-spin" /> Gerando sua prova...
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="size-4" /> Gerar prova personalizada
-                    </>
-                  )}
-                </button>
-              </section>
-            )}
+            <section className="mt-4">
+              <h4 className="font-bold text-lg mb-4">Distribuição de Competências</h4>
+              <div className="p-8 bg-card border border-border rounded-2xl shadow-sm space-y-6">
+                {result.competencies.map((c, i) => (
+                  <div key={i}>
+                    <div className="flex justify-between text-xs mb-2 font-mono uppercase">
+                      <span className="text-foreground">{c.label}</span>
+                      <span className="text-primary font-bold">{c.value}%</span>
+                    </div>
+                    <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-700"
+                        style={{ width: `${c.value}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
         </div>
 
         <aside className="w-full md:w-1/3 animate-in">
-          <div className="sticky top-32 bg-foreground text-background p-8 rounded-2xl shadow-2xl">
-            <h4 className="font-mono text-xs uppercase tracking-widest text-background/60 mb-8">
-              Distribuição de Competências
-            </h4>
-            <div className="space-y-6">
-              {result.competencies.map((c, i) => (
-                <div key={i}>
-                  <div className="flex justify-between text-xs mb-2 font-mono uppercase">
-                    <span>{c.label}</span>
-                    <span>{c.value}%</span>
-                  </div>
-                  <div className="h-1 bg-background/10">
-                    <div className="h-full bg-background transition-all duration-700" style={{ width: `${c.value}%` }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-12 pt-8 border-t border-background/10 text-center">
-              <p className="text-xs text-background/60 leading-relaxed italic">
-                "A IA não substituirá humanos, mas humanos que usam IA substituirão aqueles que não usam."
+          {tipo === "perfil" && questions && answers ? (
+            <div className="sticky top-32 bg-gradient-to-br from-primary to-accent text-primary-foreground p-8 rounded-2xl shadow-2xl">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary-foreground/80 font-bold block mb-3">
+                Próxima Etapa · Prova Personalizada
+              </span>
+              <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">
+                A IA vai montar uma prova só pra você
+              </h3>
+              <p className="text-primary-foreground/90 mb-6 leading-relaxed text-sm">
+                Com base no seu perfil e nas lacunas identificadas na triagem, a IA vai gerar uma
+                prova de 10 questões (7 múltipla escolha + 3 abertas) calibrada para o seu nível.
+                Ao final você recebe correção e feedback personalizados.
               </p>
+              <button
+                onClick={handleGenerateChallenge}
+                disabled={generating}
+                className="w-full flex items-center justify-center gap-2 bg-background text-primary px-6 py-4 rounded-lg font-bold hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {generating ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" /> Gerando sua prova...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="size-4" /> Gerar prova personalizada
+                  </>
+                )}
+              </button>
+              <div className="mt-8 pt-6 border-t border-primary-foreground/20 text-center">
+                <p className="text-xs text-primary-foreground/80 leading-relaxed italic">
+                  "A IA não substituirá humanos, mas humanos que usam IA substituirão aqueles que não usam."
+                </p>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="sticky top-32 bg-foreground text-background p-8 rounded-2xl shadow-2xl">
+              <h4 className="font-mono text-xs uppercase tracking-widest text-background/60 mb-6">
+                Resumo
+              </h4>
+              <p className="text-sm text-background/80 leading-relaxed mb-8">{result.summary}</p>
+              <div className="pt-6 border-t border-background/10 text-center">
+                <p className="text-xs text-background/60 leading-relaxed italic">
+                  "A IA não substituirá humanos, mas humanos que usam IA substituirão aqueles que não usam."
+                </p>
+              </div>
+            </div>
+          )}
         </aside>
       </div>
     </div>
