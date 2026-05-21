@@ -3,6 +3,7 @@ export type Question =
   | { id: string; type: "choice"; section: string; prompt: string; options: ChoiceOption[] }
   | { id: string; type: "open"; section: string; prompt: string; placeholder?: string };
 
+// Perfil comportamental — 10 questões (7 múltipla escolha + 3 abertas)
 export const perfilQuestions: Question[] = [
   {
     id: "p1",
@@ -21,20 +22,6 @@ export const perfilQuestions: Question[] = [
     id: "p2",
     type: "choice",
     section: "Interação e Hábitos de Uso",
-    prompt: "Qual ferramenta de IA Generativa você mais utiliza ou tem mais familiaridade?",
-    options: [
-      { key: "A", label: "ChatGPT (OpenAI)" },
-      { key: "B", label: "Gemini (Google)" },
-      { key: "C", label: "Claude (Anthropic)" },
-      { key: "D", label: "Copilot (Microsoft)" },
-      { key: "E", label: "Outras (Perplexity, Midjourney, etc.)" },
-      { key: "F", label: "Nenhuma das anteriores / não utilizo." },
-    ],
-  },
-  {
-    id: "p3",
-    type: "choice",
-    section: "Interação e Hábitos de Uso",
     prompt: "Qual o seu principal objetivo ao utilizar IA no momento?",
     options: [
       { key: "A", label: "Ganhar tempo em tarefas repetitivas e burocráticas." },
@@ -45,7 +32,7 @@ export const perfilQuestions: Question[] = [
     ],
   },
   {
-    id: "p4",
+    id: "p3",
     type: "choice",
     section: "Comportamento e Consumo de Informação",
     prompt: "\"Eu busco ativamente aprender sobre as atualizações e novos recursos das ferramentas de IA que utilizo.\"",
@@ -58,20 +45,7 @@ export const perfilQuestions: Question[] = [
     ],
   },
   {
-    id: "p5",
-    type: "choice",
-    section: "Comportamento e Consumo de Informação",
-    prompt: "Como você costuma se informar sobre os avanços da Inteligência Artificial?",
-    options: [
-      { key: "A", label: "Não acompanho notícias sobre o tema." },
-      { key: "B", label: "Apenas quando vejo algo em redes sociais ou telejornais." },
-      { key: "C", label: "Leio newsletters, blogs especializados ou sigo especialistas." },
-      { key: "D", label: "Participo de comunidades, fóruns ou grupos de discussão sobre IA." },
-      { key: "E", label: "Realizo cursos e leio documentações técnicas regularmente." },
-    ],
-  },
-  {
-    id: "p6",
+    id: "p4",
     type: "choice",
     section: "Comportamento e Consumo de Informação",
     prompt: "Ao receber uma resposta de uma IA, qual é o seu comportamento padrão de validação?",
@@ -84,7 +58,7 @@ export const perfilQuestions: Question[] = [
     ],
   },
   {
-    id: "p7",
+    id: "p5",
     type: "choice",
     section: "Percepção de Valor e Ética",
     prompt: "Qual o seu nível de conforto em delegar tarefas importantes para uma IA?",
@@ -97,7 +71,7 @@ export const perfilQuestions: Question[] = [
     ],
   },
   {
-    id: "p8",
+    id: "p6",
     type: "choice",
     section: "Percepção de Valor e Ética",
     prompt: "Sobre o impacto da IA no mercado de trabalho, qual afirmação melhor descreve sua visão?",
@@ -110,7 +84,7 @@ export const perfilQuestions: Question[] = [
     ],
   },
   {
-    id: "p9",
+    id: "p7",
     type: "choice",
     section: "Percepção de Valor e Ética",
     prompt: "Qual o seu nível de familiaridade técnica inicial (termos como ML, LLM, Deep Learning)?",
@@ -136,9 +110,16 @@ export const perfilQuestions: Question[] = [
     prompt: "O que você espera aprender ou conquistar dominando ferramentas de Inteligência Artificial?",
     placeholder: "Suas expectativas e objetivos...",
   },
+  {
+    id: "p_open_3",
+    type: "open",
+    section: "Reflexão Aberta",
+    prompt: "Qual a sua maior dúvida, receio ou bloqueio atual em relação ao uso de IA no seu dia a dia?",
+    placeholder: "Compartilhe suas dúvidas ou receios...",
+  },
 ];
 
-// Avaliação técnica — com gabarito para pontuação
+// Avaliação técnica — 10 questões (7 múltipla escolha + 3 abertas) com gabarito para pontuação
 export const tecnicoQuestions: (Question & { correct?: string })[] = [
   {
     id: "t1",
@@ -182,32 +163,6 @@ export const tecnicoQuestions: (Question & { correct?: string })[] = [
   {
     id: "t4",
     type: "choice",
-    section: "Conceitos Fundamentais da IA",
-    prompt: "Qual afirmação é verdadeira sobre a \"IA Estreita\" (Narrow AI) e a \"IA Geral\" (AGI)?",
-    correct: "C",
-    options: [
-      { key: "A", label: "A IA Geral já é uma realidade e possui consciência humana." },
-      { key: "B", label: "A IA Estreita é capaz de realizar qualquer tarefa intelectual humana." },
-      { key: "C", label: "Atualmente, a única forma de IA existente é a IA Estreita, especializada em tarefas específicas." },
-      { key: "D", label: "A IA Estreita é um termo antigo para IA, que não é mais usado." },
-    ],
-  },
-  {
-    id: "t5",
-    type: "choice",
-    section: "Conceitos Fundamentais da IA",
-    prompt: "O que é um \"Algoritmo\" no contexto da IA?",
-    correct: "B",
-    options: [
-      { key: "A", label: "Um tipo de hardware específico para processamento de IA." },
-      { key: "B", label: "Uma sequência finita de instruções lógicas que a IA segue para resolver um problema ou aprender." },
-      { key: "C", label: "O nome de um programa de computador que gera imagens aleatórias." },
-      { key: "D", label: "Um sinônimo para \"dado\" ou \"informação\" em IA." },
-    ],
-  },
-  {
-    id: "t6",
-    type: "choice",
     section: "Machine Learning e Deep Learning",
     prompt: "Qual das opções melhor define \"Machine Learning\" (Aprendizado de Máquina)?",
     correct: "B",
@@ -219,7 +174,7 @@ export const tecnicoQuestions: (Question & { correct?: string })[] = [
     ],
   },
   {
-    id: "t7",
+    id: "t5",
     type: "choice",
     section: "Machine Learning e Deep Learning",
     prompt: "Qual a relação correta entre \"Machine Learning\" e \"Deep Learning\"?",
@@ -232,20 +187,7 @@ export const tecnicoQuestions: (Question & { correct?: string })[] = [
     ],
   },
   {
-    id: "t8",
-    type: "choice",
-    section: "Machine Learning e Deep Learning",
-    prompt: "O que são \"Redes Neurais Artificiais\" no contexto do Deep Learning?",
-    correct: "B",
-    options: [
-      { key: "A", label: "Uma rede de computadores interconectados para compartilhar dados." },
-      { key: "B", label: "Estruturas matemáticas inspiradas nos neurônios humanos que permitem à IA processar informações em camadas." },
-      { key: "C", label: "Um tipo de software antivírus para proteger sistemas de IA." },
-      { key: "D", label: "Um sistema de armazenamento de dados em nuvem." },
-    ],
-  },
-  {
-    id: "t9",
+    id: "t6",
     type: "choice",
     section: "IA Generativa e Termos Específicos",
     prompt: "O que significa a sigla \"LLM\" no contexto da IA?",
@@ -258,33 +200,7 @@ export const tecnicoQuestions: (Question & { correct?: string })[] = [
     ],
   },
   {
-    id: "t10",
-    type: "choice",
-    section: "IA Generativa e Termos Específicos",
-    prompt: "Qual a principal função de um \"LLM\" (Large Language Model)?",
-    correct: "C",
-    options: [
-      { key: "A", label: "Gerar imagens e vídeos de alta qualidade." },
-      { key: "B", label: "Controlar robôs físicos em ambientes industriais." },
-      { key: "C", label: "Entender e gerar linguagem humana de forma coerente e contextualizada." },
-      { key: "D", label: "Realizar cálculos matemáticos complexos em alta velocidade." },
-    ],
-  },
-  {
-    id: "t11",
-    type: "choice",
-    section: "IA Generativa e Termos Específicos",
-    prompt: "O que é \"Engenharia de Prompt\"?",
-    correct: "B",
-    options: [
-      { key: "A", label: "A área da engenharia responsável pela construção de hardware para IA." },
-      { key: "B", label: "A técnica de criar instruções claras e eficazes para obter os melhores resultados de uma IA Generativa." },
-      { key: "C", label: "O processo de programar a IA para responder perguntas de forma automática." },
-      { key: "D", label: "A manutenção de servidores onde as IAs são executadas." },
-    ],
-  },
-  {
-    id: "t12",
+    id: "t7",
     type: "choice",
     section: "IA Generativa e Termos Específicos",
     prompt: "O que o termo \"Alucinação\" descreve no contexto da IA?",
@@ -297,36 +213,24 @@ export const tecnicoQuestions: (Question & { correct?: string })[] = [
     ],
   },
   {
-    id: "t13",
-    type: "choice",
-    section: "IA Generativa e Termos Específicos",
-    prompt: "Qual das seguintes opções é um exemplo de aplicação de IA no dia a dia?",
-    correct: "B",
-    options: [
-      { key: "A", label: "Uma calculadora básica realizando somas." },
-      { key: "B", label: "Um sistema de recomendação de filmes em um serviço de streaming." },
-      { key: "C", label: "Um editor de texto simples (bloco de notas)." },
-      { key: "D", label: "Uma máquina de lavar roupa com ciclos pré-definidos." },
-    ],
-  },
-  {
-    id: "t14",
-    type: "choice",
-    section: "IA Generativa e Termos Específicos",
-    prompt: "Qual das seguintes opções NÃO é um exemplo de aplicação de IA no dia a dia?",
-    correct: "C",
-    options: [
-      { key: "A", label: "Assistentes de voz (Alexa, Google Assistant)." },
-      { key: "B", label: "Filtros de spam em e-mails." },
-      { key: "C", label: "Um termômetro digital medindo a temperatura." },
-      { key: "D", label: "Reconhecimento facial para desbloquear um celular." },
-    ],
-  },
-  {
     id: "t_open_1",
     type: "open",
     section: "Reflexão Aberta",
-    prompt: "Em suas palavras, explique o que você entende por \"Inteligência Artificial Generativa\" e dê um exemplo prático.",
+    prompt: "Em suas palavras, explique o que você entende por \"Inteligência Artificial Generativa\" e dê um exemplo prático de uso.",
     placeholder: "Sua explicação...",
+  },
+  {
+    id: "t_open_2",
+    type: "open",
+    section: "Reflexão Aberta",
+    prompt: "O que é \"Engenharia de Prompt\" e por que ela é importante para obter bons resultados de uma IA Generativa?",
+    placeholder: "Sua resposta...",
+  },
+  {
+    id: "t_open_3",
+    type: "open",
+    section: "Reflexão Aberta",
+    prompt: "Cite um exemplo de aplicação de IA no dia a dia e explique brevemente como você imagina que ela funciona por trás dos panos.",
+    placeholder: "Exemplo e explicação...",
   },
 ];
