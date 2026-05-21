@@ -251,6 +251,55 @@ export function ReportView({ result, tipo, studentName, questions, answers }: Pr
           )}
         </aside>
       </div>
+
+      <Dialog open={modeOpen} onOpenChange={setModeOpen}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-extrabold tracking-tight">
+              Como você quer fazer a prova?
+            </DialogTitle>
+            <DialogDescription>
+              Sua prova personalizada está pronta. Escolha onde responder.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="grid gap-3 mt-2">
+            <button
+              onClick={handleStartOnline}
+              className="flex items-start gap-4 p-5 rounded-xl border-2 border-primary bg-primary/5 hover:bg-primary/10 text-left transition-all"
+            >
+              <div className="size-10 rounded-lg bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
+                <Monitor className="size-5" />
+              </div>
+              <div>
+                <p className="font-bold mb-1">Responder online agora</p>
+                <p className="text-sm text-muted-foreground">
+                  Faça a prova direto no sistema e receba o feedback na hora.
+                </p>
+              </div>
+            </button>
+
+            <button
+              onClick={handleDownloadChallenge}
+              className="flex items-start gap-4 p-5 rounded-xl border-2 border-border bg-card hover:border-primary/50 text-left transition-all"
+            >
+              <div className="size-10 rounded-lg bg-accent text-accent-foreground flex items-center justify-center flex-shrink-0">
+                <FileDown className="size-5" />
+              </div>
+              <div>
+                <p className="font-bold mb-1">Baixar PDF e responder offline</p>
+                <p className="text-sm text-muted-foreground">
+                  Baixe a prova, responda no seu tempo e depois envie de volta em{" "}
+                  <Link to="/upload" className="text-primary underline font-medium">
+                    /upload
+                  </Link>{" "}
+                  para correção automática.
+                </p>
+              </div>
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
