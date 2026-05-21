@@ -74,22 +74,22 @@ function Index() {
                   <li className="flex gap-4 items-start">
                     <span className="font-mono text-2xl font-bold text-primary">01</span>
                     <div>
-                      <p className="font-bold">Responda os questionários</p>
-                      <p className="text-xs text-background/60 mt-1">Perfil + Avaliação Técnica</p>
+                      <p className="font-bold">Triagem rápida (10 perguntas)</p>
+                      <p className="text-xs text-background/60 mt-1">Mapeia seu nível atual de IA</p>
                     </div>
                   </li>
                   <li className="flex gap-4 items-start">
                     <span className="font-mono text-2xl font-bold text-primary">02</span>
                     <div>
-                      <p className="font-bold">A IA analisa suas respostas</p>
-                      <p className="text-xs text-background/60 mt-1">Identifica perfil, lacunas e forças</p>
+                      <p className="font-bold">Prova de IA</p>
+                      <p className="text-xs text-background/60 mt-1">Responda online ou baixe o PDF</p>
                     </div>
                   </li>
                   <li className="flex gap-4 items-start">
                     <span className="font-mono text-2xl font-bold text-primary">03</span>
                     <div>
-                      <p className="font-bold">Receba seu relatório</p>
-                      <p className="text-xs text-background/60 mt-1">Trilha personalizada + download PDF</p>
+                      <p className="font-bold">Correção + feedback da IA</p>
+                      <p className="text-xs text-background/60 mt-1">Pontuação, lacunas e próximos passos</p>
                     </div>
                   </li>
                 </ol>
