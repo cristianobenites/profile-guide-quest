@@ -1,6 +1,7 @@
-import { Download, CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
+import { Download, CheckCircle2, AlertCircle, Sparkles, ArrowRight, Upload, FileText } from "lucide-react";
 import type { AnalyzeResult } from "@/lib/analyze.functions";
-import { generateReportPDF } from "@/lib/pdf-utils";
+import { generateReportPDF, generateBlankQuestionnairePDF } from "@/lib/pdf-utils";
+import { tecnicoQuestions } from "@/lib/questions";
 import { Link } from "@tanstack/react-router";
 
 export function ReportView({
@@ -102,6 +103,49 @@ export function ReportView({
                 Voltar ao Início
               </Link>
             </div>
+
+            {tipo === "perfil" && (
+              <section className="mt-12 p-8 border-2 border-primary/30 bg-primary/5 rounded-2xl">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary font-bold block mb-3">
+                  Próxima Etapa · Prova de IA
+                </span>
+                <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">
+                  Agora vamos testar seu conhecimento
+                </h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Uma prova com 10 questões sobre fundamentos de IA. Você pode responder online
+                  agora, ou baixar o PDF, responder offline e enviar depois para correção automática
+                  com feedback gerado por IA.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Link
+                    to="/tecnico"
+                    className="flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-bold hover:shadow-lg transition-all"
+                  >
+                    Iniciar prova online <ArrowRight className="size-4" />
+                  </Link>
+                  <button
+                    onClick={() => {
+                      const doc = generateBlankQuestionnairePDF(
+                        "Prova de IA",
+                        "Responda as questões abaixo. Envie o PDF preenchido em /upload para correção.",
+                        tecnicoQuestions,
+                      );
+                      doc.save("prova-ia-axioma.pdf");
+                    }}
+                    className="flex items-center gap-2 border border-border bg-card px-6 py-3 rounded-lg font-bold hover:bg-muted transition-all"
+                  >
+                    <FileText className="size-4" /> Baixar prova (PDF)
+                  </button>
+                  <Link
+                    to="/upload"
+                    className="flex items-center gap-2 border border-border bg-card px-6 py-3 rounded-lg font-bold hover:bg-muted transition-all"
+                  >
+                    <Upload className="size-4" /> Enviar prova respondida
+                  </Link>
+                </div>
+              </section>
+            )}
           </div>
         </div>
 
