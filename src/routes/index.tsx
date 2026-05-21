@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Axioma IA · Mapeie sua jornada em Inteligência Artificial" },
-      { name: "description", content: "Diagnóstico comportamental e técnico em IA. Responda online ou baixe o PDF e receba um relatório personalizado gerado por IA." },
+      { name: "description", content: "Triagem inicial + prova de IA com correção por IA. Responda online ou baixe o PDF e envie para receber feedback personalizado." },
     ],
   }),
 });
