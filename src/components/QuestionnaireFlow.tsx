@@ -115,7 +115,10 @@ export function QuestionnaireFlow({ tipo, title, questions, intro }: Props) {
           />
         </div>
         <button
-          onClick={() => setStarted(true)}
+          onClick={() => {
+            setStarted(true);
+            if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
           className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
         >
           Começar — {total} {total === 1 ? "pergunta" : "perguntas"}
