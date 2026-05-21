@@ -45,21 +45,22 @@ function Index() {
               Mapeie sua jornada na <span className="text-primary">Inteligência Artificial.</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-[50ch] text-pretty mb-10 leading-relaxed">
-              Um diagnóstico profundo para entender seu perfil comportamental e proficiência técnica.
-              Receba um relatório personalizado gerado por IA com trilhas de aprendizado sugeridas.
+              Comece com uma <strong>triagem rápida</strong> para entender seu nível atual de conhecimento.
+              Depois, faça a <strong>prova</strong> online ou baixe em PDF, responda offline e envie para
+              receber correção e feedback gerados por IA.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 to="/perfil"
                 className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
               >
-                Iniciar Diagnóstico Online
+                Começar pela Triagem
               </Link>
               <Link
                 to="/upload"
                 className="border border-border bg-card px-8 py-4 rounded-lg font-bold text-lg hover:bg-muted transition-all flex items-center gap-2"
               >
-                <Upload className="size-5" /> Enviar PDF Respondido
+                <Upload className="size-5" /> Enviar Prova Respondida
               </Link>
             </div>
           </div>
