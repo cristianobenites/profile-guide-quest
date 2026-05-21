@@ -48,9 +48,11 @@ function buildPrompt(input: AnalyzeInput) {
     ? "perfil comportamental sobre uso de Inteligência Artificial"
     : "avaliação técnica de conhecimento em Inteligência Artificial";
 
-  return `Você é um especialista em educação em IA. Analise as respostas abaixo de um aluno em um questionário diagnóstico de ${tipoLabel} e gere um relatório personalizado em português brasileiro.
+  return `Você é um especialista em educação em IA. Analise as respostas abaixo de uma pessoa em um questionário diagnóstico de ${tipoLabel} e gere um relatório personalizado em português brasileiro.
 
-Aluno: ${input.studentName || "Anônimo"}${scoreInfo}
+IMPORTANTE: Escreva o relatório SEMPRE na SEGUNDA PESSOA, falando diretamente com a pessoa (use "você", "seu", "sua"). NUNCA use "o aluno", "a aluna", "o usuário" ou terceira pessoa. O tom deve ser direto, pessoal e acolhedor.
+
+Nome da pessoa: ${input.studentName || "Anônimo"}${scoreInfo}
 
 Respostas:
 ${respostas}
@@ -58,11 +60,11 @@ ${respostas}
 Retorne EXCLUSIVAMENTE um JSON válido (sem markdown, sem texto extra) no formato:
 {
   "profileTitle": "Nome curto e marcante do perfil (2-4 palavras)",
-  "summary": "Parágrafo de 3-4 linhas resumindo o perfil ou nível técnico do aluno",
-  "strengths": ["3 pontos fortes específicos baseados nas respostas"],
-  "gaps": ["3 lacunas ou pontos de atenção específicos"],
+  "summary": "Parágrafo de 3-4 linhas falando DIRETAMENTE com a pessoa (use 'você')",
+  "strengths": ["3 pontos fortes em segunda pessoa (ex: 'Você demonstra...')"],
+  "gaps": ["3 lacunas em segunda pessoa (ex: 'Você ainda precisa...')"],
   "recommendations": [
-    {"title": "Título curto", "description": "Recomendação concreta de aprendizado/próximo passo"},
+    {"title": "Título curto", "description": "Recomendação em segunda pessoa (ex: 'Comece por...', 'Pratique...')"},
     {"title": "...", "description": "..."},
     {"title": "...", "description": "..."}
   ],
