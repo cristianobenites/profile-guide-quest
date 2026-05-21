@@ -144,24 +144,19 @@ function Index() {
                 <Sparkles className="size-6 text-accent" />
               </div>
               <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Etapa 2</span>
-              <h3 className="text-2xl font-bold mt-2 mb-3">Prova de IA</h3>
+              <h3 className="text-2xl font-bold mt-2 mb-3">Prova Personalizada por IA</h3>
               <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
-                10 questões (7 múltipla escolha + 3 abertas) sobre fundamentos, ML, LLMs e prompts.
-                Responda online ou baixe em PDF, preencha offline e envie para correção pela IA.
+                A prova <strong>não é fixa</strong>. Ao terminar a triagem, a IA analisa seu perfil e
+                gera 10 questões (7 múltipla escolha + 3 abertas) calibradas ao seu nível e às suas
+                lacunas. Em seguida, devolve correção e feedback personalizados.
               </p>
               <div className="flex flex-wrap gap-2">
                 <Link
-                  to="/tecnico"
+                  to="/perfil"
                   className="bg-foreground text-background px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-primary transition-all"
                 >
-                  Responder online
+                  Começar pela triagem
                 </Link>
-                <button
-                  onClick={() => downloadBlank("tecnico")}
-                  className="border border-border px-5 py-2.5 rounded-lg font-bold text-sm hover:bg-muted transition-all flex items-center gap-2"
-                >
-                  <FileDown className="size-4" /> Baixar PDF
-                </button>
               </div>
             </div>
           </div>
