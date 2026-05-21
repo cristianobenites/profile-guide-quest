@@ -10,9 +10,10 @@ type Props = {
   tipo: "perfil" | "tecnico";
   title: string;
   questions: (Question & { correct?: string })[];
+  intro?: string;
 };
 
-export function QuestionnaireFlow({ tipo, title, questions }: Props) {
+export function QuestionnaireFlow({ tipo, title, questions, intro }: Props) {
   const [studentName, setStudentName] = useState("");
   const [started, setStarted] = useState(false);
   const [step, setStep] = useState(0);
@@ -77,7 +78,15 @@ export function QuestionnaireFlow({ tipo, title, questions }: Props) {
   }
 
   if (report) {
-    return <ReportView result={report} tipo={tipo} studentName={studentName} />;
+    return (
+      <ReportView
+        result={report}
+        tipo={tipo}
+        studentName={studentName}
+        questions={questions}
+        answers={answers}
+      />
+    );
   }
 
   if (!started) {
@@ -88,9 +97,10 @@ export function QuestionnaireFlow({ tipo, title, questions }: Props) {
         </span>
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-[0.95] mb-6">{title}</h1>
         <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
-          {tipo === "perfil"
-            ? "10 perguntas rápidas para entender se você já tem (ou não) conhecimento sobre IA. Sem certo ou errado — responda com sinceridade para que a gente saiba por onde começar com você."
-            : "Prova com 10 questões sobre fundamentos de IA. Você pode responder agora, online, ou baixar o PDF, responder offline e enviar depois para correção e feedback gerados por IA."}
+          {intro ??
+            (tipo === "perfil"
+              ? "10 perguntas rápidas para entender se você já tem (ou não) conhecimento sobre IA. Sem certo ou errado — responda com sinceridade para que a gente saiba por onde começar com você."
+              : "Prova com 10 questões sobre fundamentos de IA. Você pode responder agora, online, ou baixar o PDF, responder offline e enviar depois para correção e feedback gerados por IA.")}
         </p>
         <div className="bg-card border border-border rounded-2xl p-6 mb-6">
           <label className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-3">

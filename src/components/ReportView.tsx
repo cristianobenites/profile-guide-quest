@@ -1,21 +1,65 @@
-import { Download, CheckCircle2, AlertCircle, Sparkles, ArrowRight, Upload, FileText } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
+import { Download, CheckCircle2, AlertCircle, Sparkles, Loader2 } from "lucide-react";
 import type { AnalyzeResult } from "@/lib/analyze.functions";
-import { generateReportPDF, generateBlankQuestionnairePDF } from "@/lib/pdf-utils";
-import { tecnicoQuestions } from "@/lib/questions";
+import { generateReportPDF } from "@/lib/pdf-utils";
+import type { Question } from "@/lib/questions";
+import { generateChallenge } from "@/lib/challenge.functions";
 import { Link } from "@tanstack/react-router";
 
-export function ReportView({
-  result,
-  tipo,
-  studentName,
-}: {
+type Props = {
   result: AnalyzeResult;
   tipo: "perfil" | "tecnico";
   studentName?: string;
-}) {
+  questions?: (Question & { correct?: string })[];
+  answers?: Record<string, string>;
+};
+
+export function ReportView({ result, tipo, studentName, questions, answers }: Props) {
+  const [generating, setGenerating] = useState(false);
+  const navigate = useNavigate();
+  const generate = useServerFn(generateChallenge);
+
   function handleDownload() {
     const doc = generateReportPDF(result, tipo, studentName);
     doc.save(`relatorio-${tipo}-${(studentName || "anonimo").replace(/\s+/g, "-").toLowerCase()}.pdf`);
+  }
+
+  async function handleGenerateChallenge() {
+    if (!questions || !answers) return;
+    setGenerating(true);
+    try {
+      const triageAnswers = questions.map((q) => {
+        const a = answers[q.id] ?? "";
+        if (q.type === "choice") {
+          const opt = q.options.find((o) => o.key === a);
+          return {
+            questionId: q.id,
+            prompt: q.prompt,
+            type: "choice" as const,
+            answer: a,
+            optionLabel: opt?.label,
+          };
+        }
+        return { questionId: q.id, prompt: q.prompt, type: "open" as const, answer: a };
+      });
+      const challenge = await generate({
+        data: {
+          studentName: studentName || undefined,
+          profileTitle: result.profileTitle,
+          profileSummary: result.summary,
+          triageAnswers,
+        },
+      });
+      sessionStorage.setItem("axioma:challenge", JSON.stringify(challenge));
+      navigate({ to: "/desafio" });
+    } catch (e: any) {
+      toast.error(e?.message ?? "Erro ao gerar prova personalizada");
+    } finally {
+      setGenerating(false);
+    }
   }
 
   return (
@@ -37,7 +81,7 @@ export function ReportView({
             </div>
             <div className="p-6 bg-card border border-border rounded-xl shadow-sm">
               <span className="font-mono text-[10px] text-muted-foreground block mb-2 uppercase">Tipo</span>
-              <div className="text-2xl font-bold capitalize">{tipo === "perfil" ? "Perfil Comportamental" : "Avaliação Técnica"}</div>
+              <div className="text-2xl font-bold capitalize">{tipo === "perfil" ? "Triagem" : "Prova Personalizada"}</div>
             </div>
           </div>
 
@@ -104,46 +148,34 @@ export function ReportView({
               </Link>
             </div>
 
-            {tipo === "perfil" && (
+            {tipo === "perfil" && questions && answers && (
               <section className="mt-12 p-8 border-2 border-primary/30 bg-primary/5 rounded-2xl">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary font-bold block mb-3">
-                  Próxima Etapa · Prova de IA
+                  Próxima Etapa · Prova Personalizada
                 </span>
                 <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">
-                  Agora vamos testar seu conhecimento
+                  A IA vai montar uma prova só pra você
                 </h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Uma prova com 10 questões sobre fundamentos de IA. Você pode responder online
-                  agora, ou baixar o PDF, responder offline e enviar depois para correção automática
-                  com feedback gerado por IA.
+                  Com base no seu perfil e nas lacunas identificadas na triagem, a IA vai gerar uma
+                  prova de 10 questões (7 múltipla escolha + 3 abertas) calibrada para o seu nível.
+                  Ao final você recebe correção e feedback personalizados.
                 </p>
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    to="/tecnico"
-                    className="flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-bold hover:shadow-lg transition-all"
-                  >
-                    Iniciar prova online <ArrowRight className="size-4" />
-                  </Link>
-                  <button
-                    onClick={() => {
-                      const doc = generateBlankQuestionnairePDF(
-                        "Prova de IA",
-                        "Responda as questões abaixo. Envie o PDF preenchido em /upload para correção.",
-                        tecnicoQuestions,
-                      );
-                      doc.save("prova-ia-axioma.pdf");
-                    }}
-                    className="flex items-center gap-2 border border-border bg-card px-6 py-3 rounded-lg font-bold hover:bg-muted transition-all"
-                  >
-                    <FileText className="size-4" /> Baixar prova (PDF)
-                  </button>
-                  <Link
-                    to="/upload"
-                    className="flex items-center gap-2 border border-border bg-card px-6 py-3 rounded-lg font-bold hover:bg-muted transition-all"
-                  >
-                    <Upload className="size-4" /> Enviar prova respondida
-                  </Link>
-                </div>
+                <button
+                  onClick={handleGenerateChallenge}
+                  disabled={generating}
+                  className="flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {generating ? (
+                    <>
+                      <Loader2 className="size-4 animate-spin" /> Gerando sua prova...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="size-4" /> Gerar prova personalizada
+                    </>
+                  )}
+                </button>
               </section>
             )}
           </div>
