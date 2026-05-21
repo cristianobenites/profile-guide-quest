@@ -7,8 +7,8 @@ export const Route = createFileRoute("/perfil")({
   component: PerfilPage,
   head: () => ({
     meta: [
-      { title: "Perfil Comportamental · Axioma IA" },
-      { name: "description", content: "Diagnóstico do seu perfil comportamental no uso de IA. 11 perguntas + análise personalizada." },
+      { title: "Triagem de Conhecimento · Axioma IA" },
+      { name: "description", content: "Triagem rápida com 10 perguntas para mapear seu nível atual de conhecimento em IA." },
     ],
   }),
 });
@@ -17,7 +17,7 @@ function PerfilPage() {
   return (
     <div className="min-h-screen bg-background">
       <Nav />
-      <QuestionnaireFlow tipo="perfil" title="Perfil Comportamental" questions={perfilQuestions} />
+      <QuestionnaireFlow tipo="perfil" title="Triagem de Conhecimento" questions={perfilQuestions} />
       <Footer />
     </div>
   );
