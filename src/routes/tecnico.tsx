@@ -7,8 +7,8 @@ export const Route = createFileRoute("/tecnico")({
   component: TecnicoPage,
   head: () => ({
     meta: [
-      { title: "Avaliação Técnica · Axioma IA" },
-      { name: "description", content: "Avaliação técnica em IA: fundamentos, ML, Deep Learning, LLMs. Receba pontuação e relatório." },
+      { title: "Prova de IA · Axioma IA" },
+      { name: "description", content: "Prova de IA com 10 questões. Responda online ou baixe o PDF e envie depois para correção e feedback gerados por IA." },
     ],
   }),
 });
@@ -17,7 +17,7 @@ function TecnicoPage() {
   return (
     <div className="min-h-screen bg-background">
       <Nav />
-      <QuestionnaireFlow tipo="tecnico" title="Avaliação Técnica" questions={tecnicoQuestions} />
+      <QuestionnaireFlow tipo="tecnico" title="Prova de IA" questions={tecnicoQuestions} />
       <Footer />
     </div>
   );
