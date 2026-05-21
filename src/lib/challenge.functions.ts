@@ -50,9 +50,11 @@ function buildPrompt(input: z.infer<typeof InputSchema>) {
     )
     .join("\n\n");
 
-  return `Você é um especialista em educação em IA. Com base nas respostas da TRIAGEM abaixo, gere uma PROVA DESAFIO totalmente personalizada e calibrada ao nível real do aluno.
+  return `Você é um especialista em educação em IA. Com base nas respostas da TRIAGEM abaixo, gere uma PROVA DESAFIO totalmente personalizada e calibrada ao nível real da pessoa.
 
-Aluno: ${input.studentName || "Anônimo"}
+IMPORTANTE: Em enunciados, introdução e qualquer texto voltado à pessoa, fale SEMPRE em SEGUNDA PESSOA ("você", "seu", "sua"). NUNCA use "o aluno" ou terceira pessoa.
+
+Nome: ${input.studentName || "Anônimo"}
 Perfil identificado: ${input.profileTitle ?? "n/d"}
 Resumo do perfil: ${input.profileSummary ?? "n/d"}
 
