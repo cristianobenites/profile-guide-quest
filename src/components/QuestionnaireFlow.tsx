@@ -10,6 +10,7 @@ type Props = {
   tipo: "perfil" | "tecnico";
   title: string;
   questions: (Question & { correct?: string })[];
+  intro?: string;
 };
 
 export function QuestionnaireFlow({ tipo, title, questions }: Props) {
