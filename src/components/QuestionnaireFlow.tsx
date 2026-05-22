@@ -175,7 +175,7 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight mt-2">{q.section}</h2>
         </div>
         <div className="w-32 md:w-48 h-1 bg-border rounded-full overflow-hidden">
-          <div className="h-full bg-primary transition-all duration-500" style={{ width: `${progress}%` }} />
+          <div className="h-full bg-primary transition-all duration-200" style={{ width: `${progress}%` }} />
         </div>
       </div>
 
@@ -189,8 +189,14 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
               return (
                 <button
                   key={opt.key}
-                  onClick={() => setAnswers((p) => ({ ...p, [q.id]: opt.key }))}
-                  className={`group flex items-start gap-4 p-5 rounded-xl text-left transition-all cursor-pointer ${
+                  onClick={() => {
+                    setAnswers((p) => ({ ...p, [q.id]: opt.key }));
+                    // Avança automaticamente para a próxima pergunta (exceto na última)
+                    if (step < total - 1) {
+                      setTimeout(() => setStep((s) => Math.min(total - 1, s + 1)), 150);
+                    }
+                  }}
+                  className={`group flex items-start gap-4 p-5 rounded-xl text-left transition-colors duration-100 cursor-pointer ${
                     selected
                       ? "bg-primary/5 border-2 border-primary"
                       : "bg-card border border-border hover:border-primary"
@@ -208,6 +214,7 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
               );
             })}
           </div>
+
         ) : (
           <div>
             <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
