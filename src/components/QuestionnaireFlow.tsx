@@ -175,7 +175,7 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight mt-2">{q.section}</h2>
         </div>
         <div className="w-32 md:w-48 h-1 bg-border rounded-full overflow-hidden">
-          <div className="h-full bg-primary transition-all duration-500" style={{ width: `${progress}%` }} />
+          <div className="h-full bg-primary transition-all duration-200" style={{ width: `${progress}%` }} />
         </div>
       </div>
 
