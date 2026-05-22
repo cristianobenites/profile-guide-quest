@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Brain, FileDown, Sparkles, Upload } from "lucide-react";
+import { Brain, FileDown, Sparkles } from "lucide-react";
 import { Nav, Footer } from "@/components/Nav";
 import { generateBlankQuestionnairePDF } from "@/lib/pdf-utils";
 import { perfilQuestions, tecnicoQuestions } from "@/lib/questions";
