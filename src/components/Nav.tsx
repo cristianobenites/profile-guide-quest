@@ -16,12 +16,6 @@ export function Nav() {
         <Link to="/tecnico" className="hover:text-primary transition-colors" activeProps={{ className: "text-primary" }}>
           Técnico
         </Link>
-        <Link
-          to="/upload"
-          className="bg-foreground text-background px-5 py-2 rounded-full hover:bg-primary transition-colors"
-        >
-          Enviar PDF
-        </Link>
       </div>
     </nav>
   );

@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Brain, FileDown, Sparkles, Upload } from "lucide-react";
+import { Brain, FileDown, Sparkles } from "lucide-react";
 import { Nav, Footer } from "@/components/Nav";
 import { generateBlankQuestionnairePDF } from "@/lib/pdf-utils";
 import { perfilQuestions, tecnicoQuestions } from "@/lib/questions";
@@ -55,12 +55,6 @@ function Index() {
                 className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
               >
                 Começar pela Triagem
-              </Link>
-              <Link
-                to="/upload"
-                className="border border-border bg-card px-8 py-4 rounded-lg font-bold text-lg hover:bg-muted transition-all flex items-center gap-2"
-              >
-                <Upload className="size-5" /> Enviar Prova Respondida
               </Link>
             </div>
           </div>
