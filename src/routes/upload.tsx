@@ -19,7 +19,7 @@ export const Route = createFileRoute("/upload")({
 });
 
 function UploadPage() {
-  const [tipo, setTipo] = useState<"perfil" | "tecnico">("perfil");
+  const tipo = "tecnico" as const;
   const [studentName, setStudentName] = useState("");
   const [fileName, setFileName] = useState("");
   const [extractedText, setExtractedText] = useState("");
@@ -59,7 +59,8 @@ function UploadPage() {
           answers: [
             {
               questionId: "pdf_full",
-              prompt: `Conteúdo completo do questionário ${tipo === "perfil" ? "de perfil comportamental" : "técnico"} preenchido pelo aluno (extraído do PDF)`,
+              prompt:
+                "Conteúdo completo da prova técnica de IA preenchida (extraído do PDF). Analise as respostas e gere o relatório falando diretamente com a pessoa (use 'você').",
               type: "open" as const,
               answer: extractedText.slice(0, 12000),
             },
