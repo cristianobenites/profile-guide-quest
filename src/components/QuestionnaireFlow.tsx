@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import type { Question } from "@/lib/questions";
 import { analyzeAnswers, type AnalyzeResult } from "@/lib/analyze.functions";
 import { ReportView } from "./ReportView";
+import { AudioAnswerButton } from "./AudioAnswerButton";
 
 type Props = {
   tipo: "perfil" | "tecnico";
@@ -13,7 +14,33 @@ type Props = {
   intro?: string;
 };
 
-export function QuestionnaireFlow({ tipo, title, questions, intro }: Props) {
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro }: Props) {
+  // Embaralha alternativas a cada carregamento, remapeando o "correct" para a nova letra
+  const questions = useMemo(() => {
+    const LETTERS = ["A", "B", "C", "D", "E", "F"];
+    return rawQuestions.map((q) => {
+      if (q.type !== "choice") return q;
+      const shuffled = shuffle(q.options);
+      const newOptions = shuffled.map((o, i) => ({ key: LETTERS[i], label: o.label }));
+      let newCorrect = q.correct;
+      if (q.correct) {
+        const idx = shuffled.findIndex((o) => o.key === q.correct);
+        if (idx >= 0) newCorrect = LETTERS[idx];
+      }
+      return { ...q, options: newOptions, correct: newCorrect };
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rawQuestions]);
+
   const [studentName, setStudentName] = useState("");
   const [started, setStarted] = useState(false);
   const [step, setStep] = useState(0);
@@ -183,17 +210,29 @@ export function QuestionnaireFlow({ tipo, title, questions, intro }: Props) {
           </div>
         ) : (
           <div>
-            <label className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-4">
-              Resposta (texto livre)
-            </label>
+            <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
+              <label className="block text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                Resposta (texto ou áudio)
+              </label>
+              <AudioAnswerButton
+                onTranscript={(text) =>
+                  setAnswers((p) => {
+                    const prev = p[q.id] ?? "";
+                    const next = (prev ? prev + " " : "") + text;
+                    return { ...p, [q.id]: next.slice(0, 2000) };
+                  })
+                }
+              />
+            </div>
             <textarea
               value={currentAnswer}
               onChange={(e) => setAnswers((p) => ({ ...p, [q.id]: e.target.value.slice(0, 2000) }))}
-              placeholder={q.placeholder ?? "Escreva sua resposta..."}
+              placeholder={q.placeholder ?? "Escreva sua resposta ou grave por áudio..."}
               className="w-full h-40 p-4 bg-card border border-border rounded-xl focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-muted-foreground/50 text-sm"
             />
             <p className="text-xs text-muted-foreground mt-2 font-mono">{currentAnswer.length}/2000</p>
           </div>
+
         )}
 
         <div className="flex justify-between pt-8 border-t border-border">

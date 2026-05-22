@@ -2,19 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { Download, CheckCircle2, AlertCircle, Sparkles, Loader2, Monitor, FileDown } from "lucide-react";
+import { Download, CheckCircle2, AlertCircle, Sparkles, Loader2 } from "lucide-react";
 import type { AnalyzeResult } from "@/lib/analyze.functions";
-import { generateReportPDF, generateBlankQuestionnairePDF } from "@/lib/pdf-utils";
+import { generateReportPDF } from "@/lib/pdf-utils";
 import type { Question } from "@/lib/questions";
-import { generateChallenge, type GenerateChallengeResult } from "@/lib/challenge.functions";
+import { generateChallenge } from "@/lib/challenge.functions";
 import { Link } from "@tanstack/react-router";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 
 type Props = {
   result: AnalyzeResult;
@@ -26,8 +19,6 @@ type Props = {
 
 export function ReportView({ result, tipo, studentName, questions, answers }: Props) {
   const [generating, setGenerating] = useState(false);
-  const [modeOpen, setModeOpen] = useState(false);
-  const [challenge, setChallenge] = useState<GenerateChallengeResult | null>(null);
   const navigate = useNavigate();
   const generate = useServerFn(generateChallenge);
 
@@ -63,8 +54,8 @@ export function ReportView({ result, tipo, studentName, questions, answers }: Pr
         },
       });
       sessionStorage.setItem("axioma:challenge", JSON.stringify(generated));
-      setChallenge(generated);
-      setModeOpen(true);
+      toast.success("Prova personalizada pronta! Bora começar.");
+      navigate({ to: "/desafio" });
     } catch (e: any) {
       toast.error(e?.message ?? "Erro ao gerar prova personalizada");
     } finally {
@@ -72,26 +63,7 @@ export function ReportView({ result, tipo, studentName, questions, answers }: Pr
     }
   }
 
-  function handleStartOnline() {
-    setModeOpen(false);
-    navigate({ to: "/desafio" });
-  }
 
-  function handleDownloadChallenge() {
-    if (!challenge) return;
-    const questionsForPdf = challenge.questions.map((q) =>
-      q.type === "choice"
-        ? { id: q.id, section: q.section, prompt: q.prompt, type: "choice" as const, options: q.options }
-        : { id: q.id, section: q.section, prompt: q.prompt, type: "open" as const, placeholder: q.placeholder },
-    );
-    const doc = generateBlankQuestionnairePDF(
-      challenge.title || "Prova Personalizada",
-      challenge.introduction || "Responda no PDF e envie de volta para correção automática.",
-      questionsForPdf as Question[],
-    );
-    doc.save(`prova-personalizada-${(studentName || "anonimo").replace(/\s+/g, "-").toLowerCase()}.pdf`);
-    toast.success("PDF baixado. Após responder, envie de volta na página de upload.");
-  }
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-16">
@@ -252,54 +224,6 @@ export function ReportView({ result, tipo, studentName, questions, answers }: Pr
         </aside>
       </div>
 
-      <Dialog open={modeOpen} onOpenChange={setModeOpen}>
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-extrabold tracking-tight">
-              Como você quer fazer a prova?
-            </DialogTitle>
-            <DialogDescription>
-              Sua prova personalizada está pronta. Escolha onde responder.
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="grid gap-3 mt-2">
-            <button
-              onClick={handleStartOnline}
-              className="flex items-start gap-4 p-5 rounded-xl border-2 border-primary bg-primary/5 hover:bg-primary/10 text-left transition-all"
-            >
-              <div className="size-10 rounded-lg bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
-                <Monitor className="size-5" />
-              </div>
-              <div>
-                <p className="font-bold mb-1">Responder online agora</p>
-                <p className="text-sm text-muted-foreground">
-                  Faça a prova direto no sistema e receba o feedback na hora.
-                </p>
-              </div>
-            </button>
-
-            <button
-              onClick={handleDownloadChallenge}
-              className="flex items-start gap-4 p-5 rounded-xl border-2 border-border bg-card hover:border-primary/50 text-left transition-all"
-            >
-              <div className="size-10 rounded-lg bg-accent text-accent-foreground flex items-center justify-center flex-shrink-0">
-                <FileDown className="size-5" />
-              </div>
-              <div>
-                <p className="font-bold mb-1">Baixar PDF e responder offline</p>
-                <p className="text-sm text-muted-foreground">
-                  Baixe a prova, responda no seu tempo e depois envie de volta em{" "}
-                  <Link to="/upload" className="text-primary underline font-medium">
-                    /upload
-                  </Link>{" "}
-                  para correção automática.
-                </p>
-              </div>
-            </button>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
