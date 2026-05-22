@@ -90,47 +90,35 @@ function UploadPage() {
       <Nav />
       <main className="max-w-3xl mx-auto px-6 py-20 animate-in">
         <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary mb-6 block font-medium">
-          Análise de PDF preenchido
+          Análise de PDF preenchido · Prova Técnica
         </span>
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
-          Envie o questionário respondido
+          Envie sua prova técnica respondida
         </h1>
         <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
-          Se o aluno preencheu o PDF offline (impresso ou digital), envie aqui para a IA analisar e
-          gerar um relatório automático.
+          Baixou o PDF da prova técnica (geral ou personalizada) e respondeu offline? Envie aqui
+          que a IA lê, corrige e devolve um relatório com pontos fortes, lacunas e recomendações
+          falando diretamente com você.
         </p>
 
         <div className="space-y-6 bg-card border border-border rounded-2xl p-6 md:p-8">
-          <div>
-            <label className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-3">
-              Tipo do questionário
-            </label>
-            <div className="grid grid-cols-2 gap-3">
-              {(["perfil", "tecnico"] as const).map((t) => (
-                <button
-                  key={t}
-                  onClick={() => setTipo(t)}
-                  className={`p-4 rounded-lg border-2 text-sm font-bold transition-all ${
-                    tipo === t
-                      ? "border-primary bg-primary/5 text-primary"
-                      : "border-border bg-background hover:border-primary/50"
-                  }`}
-                >
-                  {t === "perfil" ? "Perfil Comportamental" : "Avaliação Técnica"}
-                </button>
-              ))}
-            </div>
+          <div className="p-4 rounded-lg border border-primary/30 bg-primary/5 text-sm">
+            <p className="font-bold text-primary mb-1">Apenas prova técnica</p>
+            <p className="text-muted-foreground">
+              A triagem comportamental é respondida diretamente no site, então não há PDF para
+              enviar. Este upload é exclusivo para a prova técnica de conhecimento em IA.
+            </p>
           </div>
 
           <div>
             <label className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-3">
-              Nome do aluno (opcional)
+              Seu nome (opcional)
             </label>
             <input
               type="text"
               value={studentName}
               onChange={(e) => setStudentName(e.target.value.slice(0, 120))}
-              placeholder="Nome do aluno"
+              placeholder="Seu nome"
               className="w-full p-3 bg-background border border-border rounded-lg focus:ring-1 focus:ring-primary focus:border-primary outline-none"
             />
           </div>
