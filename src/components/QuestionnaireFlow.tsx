@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import type { Question } from "@/lib/questions";
 import { analyzeAnswers, type AnalyzeResult } from "@/lib/analyze.functions";
 import { ReportView } from "./ReportView";
+import { AudioAnswerButton } from "./AudioAnswerButton";
 
 type Props = {
   tipo: "perfil" | "tecnico";
@@ -13,7 +14,33 @@ type Props = {
   intro?: string;
 };
 
-export function QuestionnaireFlow({ tipo, title, questions, intro }: Props) {
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro }: Props) {
+  // Embaralha alternativas a cada carregamento, remapeando o "correct" para a nova letra
+  const questions = useMemo(() => {
+    const LETTERS = ["A", "B", "C", "D", "E", "F"];
+    return rawQuestions.map((q) => {
+      if (q.type !== "choice") return q;
+      const shuffled = shuffle(q.options);
+      const newOptions = shuffled.map((o, i) => ({ key: LETTERS[i], label: o.label }));
+      let newCorrect = q.correct;
+      if (q.correct) {
+        const idx = shuffled.findIndex((o) => o.key === q.correct);
+        if (idx >= 0) newCorrect = LETTERS[idx];
+      }
+      return { ...q, options: newOptions, correct: newCorrect };
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rawQuestions]);
+
   const [studentName, setStudentName] = useState("");
   const [started, setStarted] = useState(false);
   const [step, setStep] = useState(0);
