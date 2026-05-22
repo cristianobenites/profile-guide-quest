@@ -210,17 +210,29 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
           </div>
         ) : (
           <div>
-            <label className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-4">
-              Resposta (texto livre)
-            </label>
+            <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
+              <label className="block text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                Resposta (texto ou áudio)
+              </label>
+              <AudioAnswerButton
+                onTranscript={(text) =>
+                  setAnswers((p) => {
+                    const prev = p[q.id] ?? "";
+                    const next = (prev ? prev + " " : "") + text;
+                    return { ...p, [q.id]: next.slice(0, 2000) };
+                  })
+                }
+              />
+            </div>
             <textarea
               value={currentAnswer}
               onChange={(e) => setAnswers((p) => ({ ...p, [q.id]: e.target.value.slice(0, 2000) }))}
-              placeholder={q.placeholder ?? "Escreva sua resposta..."}
+              placeholder={q.placeholder ?? "Escreva sua resposta ou grave por áudio..."}
               className="w-full h-40 p-4 bg-card border border-border rounded-xl focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-muted-foreground/50 text-sm"
             />
             <p className="text-xs text-muted-foreground mt-2 font-mono">{currentAnswer.length}/2000</p>
           </div>
+
         )}
 
         <div className="flex justify-between pt-8 border-t border-border">
