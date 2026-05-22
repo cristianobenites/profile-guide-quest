@@ -138,16 +138,17 @@ export const perfilQuestions: Question[] = [
 ];
 
 // PROVA — avaliação técnica simples sobre IA (10 questões: 7 múltipla escolha + 3 abertas)
+// Gabarito distribuído entre A, B, C e D para evitar viés (A=2, B=2, C=1, D=2).
 export const tecnicoQuestions: (Question & { correct?: string })[] = [
   {
     id: "t1",
     type: "choice",
     section: "Conceitos Fundamentais da IA",
     prompt: "Qual das seguintes opções melhor define Inteligência Artificial (IA)?",
-    correct: "B",
+    correct: "A",
     options: [
-      { key: "A", label: "Um software que apenas automatiza tarefas repetitivas." },
-      { key: "B", label: "Um campo da ciência da computação que busca criar sistemas capazes de realizar tarefas que exigiriam inteligência humana." },
+      { key: "A", label: "Um campo da ciência da computação que busca criar sistemas capazes de realizar tarefas que exigiriam inteligência humana." },
+      { key: "B", label: "Um software que apenas automatiza tarefas repetitivas." },
       { key: "C", label: "Uma tecnologia que permite que robôs pensem e sintam como humanos." },
       { key: "D", label: "Um banco de dados gigante para armazenar informações." },
     ],
@@ -183,12 +184,12 @@ export const tecnicoQuestions: (Question & { correct?: string })[] = [
     type: "choice",
     section: "Machine Learning e Deep Learning",
     prompt: "Qual das opções melhor define \"Machine Learning\" (Aprendizado de Máquina)?",
-    correct: "B",
+    correct: "D",
     options: [
       { key: "A", label: "Um processo onde robôs aprendem a se mover fisicamente." },
-      { key: "B", label: "Um subcampo da IA que permite aos sistemas aprenderem com dados, sem serem explicitamente programados para cada regra." },
-      { key: "C", label: "Uma técnica de programação que exige que o desenvolvedor escreva cada regra de decisão." },
-      { key: "D", label: "O processo de ensinar um computador a jogar xadrez manualmente." },
+      { key: "B", label: "Uma técnica de programação que exige que o desenvolvedor escreva cada regra de decisão." },
+      { key: "C", label: "O processo de ensinar um computador a jogar xadrez manualmente." },
+      { key: "D", label: "Um subcampo da IA que permite aos sistemas aprenderem com dados, sem serem explicitamente programados para cada regra." },
     ],
   },
   {
@@ -196,11 +197,11 @@ export const tecnicoQuestions: (Question & { correct?: string })[] = [
     type: "choice",
     section: "Machine Learning e Deep Learning",
     prompt: "Qual a relação correta entre \"Machine Learning\" e \"Deep Learning\"?",
-    correct: "C",
+    correct: "A",
     options: [
-      { key: "A", label: "São termos sinônimos e podem ser usados de forma intercambiável." },
-      { key: "B", label: "Deep Learning é uma técnica mais antiga que o Machine Learning." },
-      { key: "C", label: "Deep Learning é um subcampo do Machine Learning que utiliza redes neurais com múltiplas camadas." },
+      { key: "A", label: "Deep Learning é um subcampo do Machine Learning que utiliza redes neurais com múltiplas camadas." },
+      { key: "B", label: "São termos sinônimos e podem ser usados de forma intercambiável." },
+      { key: "C", label: "Deep Learning é uma técnica mais antiga que o Machine Learning." },
       { key: "D", label: "Machine Learning é um subcampo do Deep Learning." },
     ],
   },
@@ -209,12 +210,12 @@ export const tecnicoQuestions: (Question & { correct?: string })[] = [
     type: "choice",
     section: "IA Generativa e Termos Específicos",
     prompt: "O que significa a sigla \"LLM\" no contexto da IA?",
-    correct: "B",
+    correct: "D",
     options: [
       { key: "A", label: "Linguagem de Lógica Matemática" },
-      { key: "B", label: "Large Language Model (Modelo de Linguagem Grande)" },
-      { key: "C", label: "Local Learning Machine" },
-      { key: "D", label: "Light Learning Module" },
+      { key: "B", label: "Local Learning Machine" },
+      { key: "C", label: "Light Learning Module" },
+      { key: "D", label: "Large Language Model (Modelo de Linguagem Grande)" },
     ],
   },
   {
