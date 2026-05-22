@@ -56,12 +56,6 @@ function Index() {
               >
                 Começar pela Triagem
               </Link>
-              <Link
-                to="/upload"
-                className="border border-border bg-card px-8 py-4 rounded-lg font-bold text-lg hover:bg-muted transition-all flex items-center gap-2"
-              >
-                <Upload className="size-5" /> Enviar Prova Respondida
-              </Link>
             </div>
           </div>
           <div className="lg:col-span-5 animate-in [animation-delay:150ms]">
