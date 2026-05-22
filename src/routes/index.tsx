@@ -1,35 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Brain, FileDown, Sparkles } from "lucide-react";
 import { Nav, Footer } from "@/components/Nav";
-import { generateBlankQuestionnairePDF } from "@/lib/pdf-utils";
-import { perfilQuestions, tecnicoQuestions } from "@/lib/questions";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
       { title: "Axioma IA · Mapeie sua jornada em Inteligência Artificial" },
-      { name: "description", content: "Triagem inicial + prova de IA com correção por IA. Responda online ou baixe o PDF e envie para receber feedback personalizado." },
+      { name: "description", content: "Triagem inicial + prova de IA online com correção e feedback gerados por IA." },
     ],
   }),
 });
 
 function Index() {
-  function downloadBlank(tipo: "perfil" | "tecnico") {
-    const doc =
-      tipo === "perfil"
-        ? generateBlankQuestionnairePDF(
-            "Triagem de Conhecimento em IA",
-            "Etapa 1 — Triagem Diagnóstica",
-            perfilQuestions,
-          )
-        : generateBlankQuestionnairePDF(
-            "Prova de IA",
-            "Etapa 2 — Avaliação com Correção por IA",
-            tecnicoQuestions,
-          );
-    doc.save(`questionario-${tipo}-axioma.pdf`);
-  }
+
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/10">
@@ -45,9 +28,10 @@ function Index() {
               Mapeie sua jornada na <span className="text-primary">Inteligência Artificial.</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-[50ch] text-pretty mb-10 leading-relaxed">
-              Comece com uma <strong>triagem rápida</strong> para entender seu nível atual de conhecimento.
-              Depois, faça a <strong>prova</strong> online ou baixe em PDF, responda offline e envie para
-              receber correção e feedback gerados por IA.
+              Comece com uma <strong>triagem rápida</strong> para entender seu nível atual.
+              Depois, faça a <strong>prova personalizada</strong> online e receba correção e
+              feedback gerados por IA na hora.
+
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
@@ -76,7 +60,7 @@ function Index() {
                     <span className="font-mono text-2xl font-bold text-primary">02</span>
                     <div>
                       <p className="font-bold">Prova de IA</p>
-                      <p className="text-xs text-background/60 mt-1">Responda online ou baixe o PDF</p>
+                      <p className="text-xs text-background/60 mt-1">Personalizada e respondida online</p>
                     </div>
                   </li>
                   <li className="flex gap-4 items-start">
