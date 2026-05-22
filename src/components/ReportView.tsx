@@ -2,19 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { Download, CheckCircle2, AlertCircle, Sparkles, Loader2, Monitor, FileDown } from "lucide-react";
+import { Download, CheckCircle2, AlertCircle, Sparkles, Loader2 } from "lucide-react";
 import type { AnalyzeResult } from "@/lib/analyze.functions";
-import { generateReportPDF, generateBlankQuestionnairePDF } from "@/lib/pdf-utils";
+import { generateReportPDF } from "@/lib/pdf-utils";
 import type { Question } from "@/lib/questions";
-import { generateChallenge, type GenerateChallengeResult } from "@/lib/challenge.functions";
+import { generateChallenge } from "@/lib/challenge.functions";
 import { Link } from "@tanstack/react-router";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 
 type Props = {
   result: AnalyzeResult;
@@ -26,8 +19,6 @@ type Props = {
 
 export function ReportView({ result, tipo, studentName, questions, answers }: Props) {
   const [generating, setGenerating] = useState(false);
-  const [modeOpen, setModeOpen] = useState(false);
-  const [challenge, setChallenge] = useState<GenerateChallengeResult | null>(null);
   const navigate = useNavigate();
   const generate = useServerFn(generateChallenge);
 
@@ -63,8 +54,8 @@ export function ReportView({ result, tipo, studentName, questions, answers }: Pr
         },
       });
       sessionStorage.setItem("axioma:challenge", JSON.stringify(generated));
-      setChallenge(generated);
-      setModeOpen(true);
+      toast.success("Prova personalizada pronta! Bora começar.");
+      navigate({ to: "/desafio" });
     } catch (e: any) {
       toast.error(e?.message ?? "Erro ao gerar prova personalizada");
     } finally {
@@ -72,26 +63,7 @@ export function ReportView({ result, tipo, studentName, questions, answers }: Pr
     }
   }
 
-  function handleStartOnline() {
-    setModeOpen(false);
-    navigate({ to: "/desafio" });
-  }
 
-  function handleDownloadChallenge() {
-    if (!challenge) return;
-    const questionsForPdf = challenge.questions.map((q) =>
-      q.type === "choice"
-        ? { id: q.id, section: q.section, prompt: q.prompt, type: "choice" as const, options: q.options }
-        : { id: q.id, section: q.section, prompt: q.prompt, type: "open" as const, placeholder: q.placeholder },
-    );
-    const doc = generateBlankQuestionnairePDF(
-      challenge.title || "Prova Personalizada",
-      challenge.introduction || "Responda no PDF e envie de volta para correção automática.",
-      questionsForPdf as Question[],
-    );
-    doc.save(`prova-personalizada-${(studentName || "anonimo").replace(/\s+/g, "-").toLowerCase()}.pdf`);
-    toast.success("PDF baixado. Após responder, envie de volta na página de upload.");
-  }
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-16">
