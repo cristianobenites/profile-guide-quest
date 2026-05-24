@@ -191,10 +191,6 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
                   key={opt.key}
                   onClick={() => {
                     setAnswers((p) => ({ ...p, [q.id]: opt.key }));
-                    // Avança automaticamente para a próxima pergunta (exceto na última)
-                    if (step < total - 1) {
-                      setTimeout(() => setStep((s) => Math.min(total - 1, s + 1)), 150);
-                    }
                   }}
                   className={`group flex items-start gap-4 p-5 rounded-xl text-left transition-colors duration-100 cursor-pointer ${
                     selected
