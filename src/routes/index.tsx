@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { Nav, Footer } from "@/components/Nav";
 
 export const Route = createFileRoute("/")({
