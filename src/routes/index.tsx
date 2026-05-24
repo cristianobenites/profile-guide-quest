@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Nav, Footer } from "@/components/Nav";
 
@@ -35,16 +35,15 @@ function Index() {
 
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link
-                to="/perfil"
-                preload="intent"
+              <a
+                href="/perfil#pergunta-1"
                 className="group relative overflow-hidden bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_30px_-5px_hsl(225_70%_45%/0.4)] dark:hover:shadow-[0_0_30px_-5px_hsl(225_70%_60%/0.4)] active:scale-[0.97] cursor-pointer"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Começar pela Triagem
                   <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
                 </span>
-              </Link>
+              </a>
             </div>
           </div>
           <div className="lg:col-span-5 animate-in [animation-delay:150ms]">
