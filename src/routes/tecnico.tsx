@@ -8,7 +8,7 @@ export const Route = createFileRoute("/tecnico")({
   head: () => ({
     meta: [
       { title: "Prova de IA · Axioma IA" },
-      { name: "description", content: "Prova de IA com 10 questões. Responda online ou baixe o PDF e envie depois para correção e feedback gerados por IA." },
+      { name: "description", content: "Prova de IA com 10 questões. Responda online e receba correção e feedback gerados por IA." },
     ],
   }),
 });
