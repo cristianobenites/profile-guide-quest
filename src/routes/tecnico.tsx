@@ -5,7 +5,7 @@ import { tecnicoQuestions } from "@/lib/questions";
 
 export const Route = createFileRoute("/tecnico")({
   validateSearch: (search: Record<string, unknown>) => ({
-    start: search.start === "1",
+    start: search.start === true || search.start === "true" || search.start === "1" || search.start === 1,
   }),
   component: TecnicoPage,
   head: () => ({
@@ -27,7 +27,7 @@ function TecnicoPage() {
         title="Prova de IA"
         questions={tecnicoQuestions}
         initialStarted={start}
-        startHref="/tecnico?start=1"
+        startHref="/tecnico?start=true"
       />
       <Footer />
     </div>
