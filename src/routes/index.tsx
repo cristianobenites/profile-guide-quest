@@ -36,7 +36,8 @@ function Index() {
             <div className="flex flex-wrap gap-4">
               <Link
                 to="/perfil"
-                className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
+                preload="intent"
+                className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-shadow duration-150 active:scale-[0.98]"
               >
                 Começar pela Triagem
               </Link>
