@@ -144,9 +144,9 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
         <button
           onClick={() => {
             setStarted(true);
-            if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+            if (typeof window !== "undefined") window.scrollTo(0, 0);
           }}
-          className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
+          className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-shadow duration-150 active:scale-[0.98]"
         >
           Começar — {total} {total === 1 ? "pergunta" : "perguntas"}
         </button>
