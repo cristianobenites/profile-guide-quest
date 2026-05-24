@@ -139,13 +139,13 @@ export function ReportView({ result, tipo, studentName, questions, answers }: Pr
             <div className="flex flex-wrap gap-3 pt-4">
               <button
                 onClick={handleDownload}
-                className="flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-bold hover:shadow-lg transition-all"
+                className="flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-bold hover:shadow-lg transition-all cursor-pointer"
               >
                 <Download className="size-4" /> Baixar Relatório (PDF)
               </button>
               <Link
                 to="/"
-                className="flex items-center gap-2 border border-border bg-card px-6 py-3 rounded-lg font-bold hover:bg-muted transition-all"
+                className="flex items-center gap-2 border border-border bg-card px-6 py-3 rounded-lg font-bold hover:bg-muted transition-all cursor-pointer"
               >
                 Voltar ao Início
               </Link>
@@ -190,7 +190,7 @@ export function ReportView({ result, tipo, studentName, questions, answers }: Pr
               <button
                 onClick={handleGenerateChallenge}
                 disabled={generating}
-                className="w-full flex items-center justify-center gap-2 bg-background text-primary px-6 py-4 rounded-lg font-bold hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-2 bg-background text-primary px-6 py-4 rounded-lg font-bold hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 {generating ? (
                   <>
