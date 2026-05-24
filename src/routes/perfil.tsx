@@ -4,6 +4,9 @@ import { QuestionnaireFlow } from "@/components/QuestionnaireFlow";
 import { perfilQuestions } from "@/lib/questions";
 
 export const Route = createFileRoute("/perfil")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    start: search.start === true || search.start === "true" || search.start === "1" || search.start === 1,
+  }),
   component: PerfilPage,
   head: () => ({
     meta: [
@@ -14,10 +17,18 @@ export const Route = createFileRoute("/perfil")({
 });
 
 function PerfilPage() {
+  const { start } = Route.useSearch();
+
   return (
     <div className="min-h-screen bg-background">
       <Nav />
-      <QuestionnaireFlow tipo="perfil" title="Triagem de Conhecimento" questions={perfilQuestions} />
+      <QuestionnaireFlow
+        tipo="perfil"
+        title="Triagem de Conhecimento"
+        questions={perfilQuestions}
+        initialStarted={start}
+        startHref="/perfil?start=true"
+      />
       <Footer />
     </div>
   );

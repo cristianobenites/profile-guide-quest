@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
@@ -12,24 +12,34 @@ type Props = {
   title: string;
   questions: (Question & { correct?: string })[];
   intro?: string;
+  initialStarted?: boolean;
+  startHref?: string;
 };
 
-function shuffle<T>(arr: T[]): T[] {
+function shouldStartFromUrl() {
+  if (typeof window === "undefined") return false;
+  return window.location.hash === "#pergunta-1" || window.location.search.includes("start=1");
+}
+
+function shuffle<T>(arr: T[], seedText: string): T[] {
   const a = [...arr];
+  let seed = 0;
+  for (let i = 0; i < seedText.length; i++) seed = (seed * 31 + seedText.charCodeAt(i)) >>> 0;
   for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    const j = seed % (i + 1);
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
 }
 
-export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro }: Props) {
+export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro, initialStarted = false, startHref }: Props) {
   // Embaralha alternativas a cada carregamento, remapeando o "correct" para a nova letra
   const questions = useMemo(() => {
     const LETTERS = ["A", "B", "C", "D", "E", "F"];
     return rawQuestions.map((q) => {
       if (q.type !== "choice") return q;
-      const shuffled = shuffle(q.options);
+      const shuffled = shuffle(q.options, q.id);
       const newOptions = shuffled.map((o, i) => ({ key: LETTERS[i], label: o.label }));
       let newCorrect = q.correct;
       if (q.correct) {
@@ -42,12 +52,16 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
   }, [rawQuestions]);
 
   const [studentName, setStudentName] = useState("");
-  const [started, setStarted] = useState(false);
+  const [started, setStarted] = useState(() => initialStarted || shouldStartFromUrl());
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [report, setReport] = useState<AnalyzeResult | null>(null);
   const analyze = useServerFn(analyzeAnswers);
+
+  useEffect(() => {
+    if (initialStarted || shouldStartFromUrl()) setStarted(true);
+  }, [initialStarted]);
 
   const total = questions.length;
   const q = questions[step];
@@ -141,15 +155,20 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
             className="w-full p-3 bg-background border border-border rounded-lg focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all"
           />
         </div>
-        <button
-          onClick={() => {
+        <a
+          href={startHref ?? "#pergunta-1"}
+          onClick={(event) => {
+            event.preventDefault();
             setStarted(true);
-            if (typeof window !== "undefined") window.scrollTo(0, 0);
+            if (typeof window !== "undefined") {
+              if (startHref) window.history.replaceState(null, "", startHref);
+              window.scrollTo(0, 0);
+            }
           }}
-          className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-shadow duration-150 active:scale-[0.98] cursor-pointer"
+          className="inline-flex bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-shadow duration-150 active:scale-[0.98] cursor-pointer"
         >
           Começar — {total} {total === 1 ? "pergunta" : "perguntas"}
-        </button>
+        </a>
       </div>
     );
   }

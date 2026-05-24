@@ -4,6 +4,9 @@ import { QuestionnaireFlow } from "@/components/QuestionnaireFlow";
 import { tecnicoQuestions } from "@/lib/questions";
 
 export const Route = createFileRoute("/tecnico")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    start: search.start === true || search.start === "true" || search.start === "1" || search.start === 1,
+  }),
   component: TecnicoPage,
   head: () => ({
     meta: [
@@ -14,10 +17,18 @@ export const Route = createFileRoute("/tecnico")({
 });
 
 function TecnicoPage() {
+  const { start } = Route.useSearch();
+
   return (
     <div className="min-h-screen bg-background">
       <Nav />
-      <QuestionnaireFlow tipo="tecnico" title="Prova de IA" questions={tecnicoQuestions} />
+      <QuestionnaireFlow
+        tipo="tecnico"
+        title="Prova de IA"
+        questions={tecnicoQuestions}
+        initialStarted={start}
+        startHref="/tecnico?start=true"
+      />
       <Footer />
     </div>
   );
