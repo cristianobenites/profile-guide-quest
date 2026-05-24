@@ -5,7 +5,7 @@ import { perfilQuestions } from "@/lib/questions";
 
 export const Route = createFileRoute("/perfil")({
   validateSearch: (search: Record<string, unknown>) => ({
-    start: search.start === "1",
+    start: search.start === true || search.start === "true" || search.start === "1" || search.start === 1,
   }),
   component: PerfilPage,
   head: () => ({
@@ -27,7 +27,7 @@ function PerfilPage() {
         title="Triagem de Conhecimento"
         questions={perfilQuestions}
         initialStarted={start}
-        startHref="/perfil?start=1"
+        startHref="/perfil?start=true"
       />
       <Footer />
     </div>
