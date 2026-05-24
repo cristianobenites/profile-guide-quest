@@ -91,6 +91,20 @@
 
 @layer base {
   * { border-color: var(--color-border); }
+  button:not(:disabled),
+  a[href],
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  summary {
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
