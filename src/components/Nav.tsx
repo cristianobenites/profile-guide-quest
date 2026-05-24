@@ -4,17 +4,17 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 export function Nav() {
   return (
     <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md px-6 py-4 flex justify-between items-center">
-      <Link to="/" className="flex items-center gap-2 group">
+      <Link to="/" className="flex items-center gap-2 group cursor-pointer">
         <div className="size-8 bg-primary rounded-sm flex items-center justify-center text-primary-foreground font-mono font-bold group-hover:bg-accent transition-colors">
           A
         </div>
         <span className="font-extrabold tracking-tighter text-xl uppercase">Axioma IA</span>
       </Link>
       <div className="flex items-center gap-6 text-sm font-medium uppercase tracking-wider">
-        <Link to="/perfil" className="hidden md:inline hover:text-primary transition-colors" activeProps={{ className: "text-primary" }}>
+        <Link to="/perfil" className="hidden md:inline hover:text-primary transition-colors cursor-pointer" activeProps={{ className: "text-primary" }}>
           Perfil
         </Link>
-        <Link to="/tecnico" className="hidden md:inline hover:text-primary transition-colors" activeProps={{ className: "text-primary" }}>
+        <Link to="/tecnico" className="hidden md:inline hover:text-primary transition-colors cursor-pointer" activeProps={{ className: "text-primary" }}>
           Técnico
         </Link>
         <ThemeToggle />

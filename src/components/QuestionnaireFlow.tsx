@@ -146,7 +146,7 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
             setStarted(true);
             if (typeof window !== "undefined") window.scrollTo(0, 0);
           }}
-          className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-shadow duration-150 active:scale-[0.98]"
+          className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-shadow duration-150 active:scale-[0.98] cursor-pointer"
         >
           Começar — {total} {total === 1 ? "pergunta" : "perguntas"}
         </button>
@@ -242,7 +242,7 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
           <button
             onClick={() => setStep((s) => Math.max(0, s - 1))}
             disabled={step === 0}
-            className="text-muted-foreground font-bold hover:text-foreground flex items-center gap-2 disabled:opacity-30"
+            className="text-muted-foreground font-bold hover:text-foreground flex items-center gap-2 disabled:opacity-30 cursor-pointer"
           >
             <ArrowLeft className="size-4" /> Anterior
           </button>
@@ -250,7 +250,7 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
             <button
               onClick={handleSubmit}
               disabled={!canAdvance}
-              className="bg-accent text-accent-foreground px-8 py-3 rounded-lg font-bold hover:shadow-lg transition-all disabled:opacity-30 flex items-center gap-2"
+              className="bg-accent text-accent-foreground px-8 py-3 rounded-lg font-bold hover:shadow-lg transition-all disabled:opacity-30 flex items-center gap-2 cursor-pointer"
             >
               Gerar Relatório <ArrowRight className="size-4" />
             </button>

@@ -42,7 +42,7 @@ function DesafioPage() {
           </p>
           <Link
             to="/perfil"
-            className="inline-block bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold hover:shadow-xl transition-all"
+            className="inline-block bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold hover:shadow-xl transition-all cursor-pointer"
           >
             Iniciar triagem
           </Link>

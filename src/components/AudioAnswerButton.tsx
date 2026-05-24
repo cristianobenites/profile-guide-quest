@@ -148,7 +148,7 @@ export function AudioAnswerButton({ onTranscript, onInterim }: Props) {
       <button
         type="button"
         onClick={toggle}
-        className={`inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest px-3 py-2 rounded-lg border transition-all w-fit ${
+        className={`inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest px-3 py-2 rounded-lg border transition-all w-fit cursor-pointer ${
           recording
             ? "bg-primary text-primary-foreground border-primary animate-pulse"
             : "bg-card border-border hover:border-primary text-foreground"
