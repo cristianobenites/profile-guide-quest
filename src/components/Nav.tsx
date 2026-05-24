@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function Nav() {
   return (
@@ -9,13 +10,14 @@ export function Nav() {
         </div>
         <span className="font-extrabold tracking-tighter text-xl uppercase">Axioma IA</span>
       </Link>
-      <div className="hidden md:flex items-center gap-6 text-sm font-medium uppercase tracking-wider">
-        <Link to="/perfil" className="hover:text-primary transition-colors" activeProps={{ className: "text-primary" }}>
+      <div className="flex items-center gap-6 text-sm font-medium uppercase tracking-wider">
+        <Link to="/perfil" className="hidden md:inline hover:text-primary transition-colors" activeProps={{ className: "text-primary" }}>
           Perfil
         </Link>
-        <Link to="/tecnico" className="hover:text-primary transition-colors" activeProps={{ className: "text-primary" }}>
+        <Link to="/tecnico" className="hidden md:inline hover:text-primary transition-colors" activeProps={{ className: "text-primary" }}>
           Técnico
         </Link>
+        <ThemeToggle />
       </div>
     </nav>
   );
