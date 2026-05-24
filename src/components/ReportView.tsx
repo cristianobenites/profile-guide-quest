@@ -187,21 +187,27 @@ export function ReportView({ result, tipo, studentName, questions, answers }: Pr
                 prova de 10 questões (7 múltipla escolha + 3 abertas) calibrada para o seu nível.
                 Ao final você recebe correção e feedback personalizados.
               </p>
-              <button
-                onClick={handleGenerateChallenge}
-                disabled={generating}
-                className="w-full flex items-center justify-center gap-2 bg-background text-primary px-6 py-4 rounded-lg font-bold hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-              >
-                {generating ? (
-                  <>
-                    <Loader2 className="size-4 animate-spin" /> Gerando sua prova...
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="size-4" /> Gerar prova personalizada
-                  </>
-                )}
-              </button>
+              <div className="relative">
+                <span
+                  aria-hidden
+                  className={`pointer-events-none absolute -inset-1 rounded-xl bg-background/60 blur-md ${generating ? "" : "animate-pulse"}`}
+                />
+                <button
+                  onClick={handleGenerateChallenge}
+                  disabled={generating}
+                  className={`relative w-full flex items-center justify-center gap-2 bg-background text-primary px-6 py-4 rounded-lg font-bold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer ring-2 ring-background/80 ${generating ? "" : "animate-attention"}`}
+                >
+                  {generating ? (
+                    <>
+                      <Loader2 className="size-4 animate-spin" /> Gerando sua prova...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="size-4 animate-pulse" /> Gerar prova personalizada
+                    </>
+                  )}
+                </button>
+              </div>
               <div className="mt-8 pt-6 border-t border-primary-foreground/20 text-center">
                 <p className="text-xs text-primary-foreground/80 leading-relaxed italic">
                   "A IA não substituirá humanos, mas humanos que usam IA substituirão aqueles que não usam."
