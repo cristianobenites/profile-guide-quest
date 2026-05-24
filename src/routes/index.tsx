@@ -36,7 +36,7 @@ function Index() {
             </p>
             <div className="flex flex-wrap gap-4">
               <a
-                href="/perfil#pergunta-1"
+                href="/perfil?start=1"
                 className="group relative overflow-hidden bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_30px_-5px_hsl(225_70%_45%/0.4)] dark:hover:shadow-[0_0_30px_-5px_hsl(225_70%_60%/0.4)] active:scale-[0.97] cursor-pointer"
               >
                 <span className="relative z-10 flex items-center gap-2">
