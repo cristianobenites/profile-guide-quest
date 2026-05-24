@@ -258,7 +258,7 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro 
             <button
               onClick={() => setStep((s) => s + 1)}
               disabled={!canAdvance}
-              className="bg-foreground text-background px-8 py-3 rounded-lg font-bold hover:bg-primary transition-all disabled:opacity-30 flex items-center gap-2"
+              className="bg-foreground text-background px-8 py-3 rounded-lg font-bold hover:bg-primary transition-all disabled:opacity-30 flex items-center gap-2 cursor-pointer"
             >
               Próxima <ArrowRight className="size-4" />
             </button>
