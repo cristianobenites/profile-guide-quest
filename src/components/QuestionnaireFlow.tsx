@@ -21,10 +21,13 @@ function shouldStartFromUrl() {
   return window.location.hash === "#pergunta-1" || window.location.search.includes("start=1");
 }
 
-function shuffle<T>(arr: T[]): T[] {
+function shuffle<T>(arr: T[], seedText: string): T[] {
   const a = [...arr];
+  let seed = 0;
+  for (let i = 0; i < seedText.length; i++) seed = (seed * 31 + seedText.charCodeAt(i)) >>> 0;
   for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    const j = seed % (i + 1);
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
@@ -36,7 +39,7 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro,
     const LETTERS = ["A", "B", "C", "D", "E", "F"];
     return rawQuestions.map((q) => {
       if (q.type !== "choice") return q;
-      const shuffled = shuffle(q.options);
+      const shuffled = shuffle(q.options, q.id);
       const newOptions = shuffled.map((o, i) => ({ key: LETTERS[i], label: o.label }));
       let newCorrect = q.correct;
       if (q.correct) {
