@@ -16,6 +16,11 @@ type Props = {
   startHref?: string;
 };
 
+function shouldStartFromUrl() {
+  if (typeof window === "undefined") return false;
+  return window.location.hash === "#pergunta-1" || window.location.search.includes("start=1");
+}
+
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -44,7 +49,7 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro,
   }, [rawQuestions]);
 
   const [studentName, setStudentName] = useState("");
-  const [started, setStarted] = useState(initialStarted);
+  const [started, setStarted] = useState(() => initialStarted || shouldStartFromUrl());
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
@@ -52,7 +57,7 @@ export function QuestionnaireFlow({ tipo, title, questions: rawQuestions, intro,
   const analyze = useServerFn(analyzeAnswers);
 
   useEffect(() => {
-    if (initialStarted) setStarted(true);
+    if (initialStarted || shouldStartFromUrl()) setStarted(true);
   }, [initialStarted]);
 
   const total = questions.length;
