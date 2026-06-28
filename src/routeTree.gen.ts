@@ -20,6 +20,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAppProjectsRouteImport } from './routes/_authenticated/app/projects'
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app/profile'
+import { Route as AuthenticatedAppProjectsNewRouteImport } from './routes/_authenticated/app/projects/new'
+import { Route as AuthenticatedAppProjectsIdRouteImport } from './routes/_authenticated/app/projects/$id'
 
 const UploadRoute = UploadRouteImport.update({
   id: '/upload',
@@ -76,6 +78,18 @@ const AuthenticatedAppProfileRoute = AuthenticatedAppProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppProjectsNewRoute =
+  AuthenticatedAppProjectsNewRouteImport.update({
+    id: '/new',
+    path: '/new',
+    getParentRoute: () => AuthenticatedAppProjectsRoute,
+  } as any)
+const AuthenticatedAppProjectsIdRoute =
+  AuthenticatedAppProjectsIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedAppProjectsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -87,7 +101,9 @@ export interface FileRoutesByFullPath {
   '/upload': typeof UploadRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/app/profile': typeof AuthenticatedAppProfileRoute
-  '/app/projects': typeof AuthenticatedAppProjectsRoute
+  '/app/projects': typeof AuthenticatedAppProjectsRouteWithChildren
+  '/app/projects/$id': typeof AuthenticatedAppProjectsIdRoute
+  '/app/projects/new': typeof AuthenticatedAppProjectsNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -99,7 +115,9 @@ export interface FileRoutesByTo {
   '/upload': typeof UploadRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/app/profile': typeof AuthenticatedAppProfileRoute
-  '/app/projects': typeof AuthenticatedAppProjectsRoute
+  '/app/projects': typeof AuthenticatedAppProjectsRouteWithChildren
+  '/app/projects/$id': typeof AuthenticatedAppProjectsIdRoute
+  '/app/projects/new': typeof AuthenticatedAppProjectsNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -113,7 +131,9 @@ export interface FileRoutesById {
   '/upload': typeof UploadRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
-  '/_authenticated/app/projects': typeof AuthenticatedAppProjectsRoute
+  '/_authenticated/app/projects': typeof AuthenticatedAppProjectsRouteWithChildren
+  '/_authenticated/app/projects/$id': typeof AuthenticatedAppProjectsIdRoute
+  '/_authenticated/app/projects/new': typeof AuthenticatedAppProjectsNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -128,6 +148,8 @@ export interface FileRouteTypes {
     | '/app'
     | '/app/profile'
     | '/app/projects'
+    | '/app/projects/$id'
+    | '/app/projects/new'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -140,6 +162,8 @@ export interface FileRouteTypes {
     | '/app'
     | '/app/profile'
     | '/app/projects'
+    | '/app/projects/$id'
+    | '/app/projects/new'
   id:
     | '__root__'
     | '/'
@@ -153,6 +177,8 @@ export interface FileRouteTypes {
     | '/_authenticated/app'
     | '/_authenticated/app/profile'
     | '/_authenticated/app/projects'
+    | '/_authenticated/app/projects/$id'
+    | '/_authenticated/app/projects/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -245,17 +271,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppProfileRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/projects/new': {
+      id: '/_authenticated/app/projects/new'
+      path: '/new'
+      fullPath: '/app/projects/new'
+      preLoaderRoute: typeof AuthenticatedAppProjectsNewRouteImport
+      parentRoute: typeof AuthenticatedAppProjectsRoute
+    }
+    '/_authenticated/app/projects/$id': {
+      id: '/_authenticated/app/projects/$id'
+      path: '/$id'
+      fullPath: '/app/projects/$id'
+      preLoaderRoute: typeof AuthenticatedAppProjectsIdRouteImport
+      parentRoute: typeof AuthenticatedAppProjectsRoute
+    }
   }
 }
 
+interface AuthenticatedAppProjectsRouteChildren {
+  AuthenticatedAppProjectsIdRoute: typeof AuthenticatedAppProjectsIdRoute
+  AuthenticatedAppProjectsNewRoute: typeof AuthenticatedAppProjectsNewRoute
+}
+
+const AuthenticatedAppProjectsRouteChildren: AuthenticatedAppProjectsRouteChildren =
+  {
+    AuthenticatedAppProjectsIdRoute: AuthenticatedAppProjectsIdRoute,
+    AuthenticatedAppProjectsNewRoute: AuthenticatedAppProjectsNewRoute,
+  }
+
+const AuthenticatedAppProjectsRouteWithChildren =
+  AuthenticatedAppProjectsRoute._addFileChildren(
+    AuthenticatedAppProjectsRouteChildren,
+  )
+
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
-  AuthenticatedAppProjectsRoute: typeof AuthenticatedAppProjectsRoute
+  AuthenticatedAppProjectsRoute: typeof AuthenticatedAppProjectsRouteWithChildren
 }
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
-  AuthenticatedAppProjectsRoute: AuthenticatedAppProjectsRoute,
+  AuthenticatedAppProjectsRoute: AuthenticatedAppProjectsRouteWithChildren,
 }
 
 const AuthenticatedAppRouteWithChildren =
