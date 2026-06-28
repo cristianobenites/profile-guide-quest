@@ -1,90 +1,116 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
-import { Nav, Footer } from "@/components/Nav";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, FileUp, Sparkles, Users, FileText } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  component: LandingPage,
   head: () => ({
     meta: [
-      { title: "Axioma IA · Mapeie sua jornada em Inteligência Artificial" },
-      { name: "description", content: "Triagem inicial + prova de IA online com correção e feedback gerados por IA." },
+      { title: "StraightCut · Síntese Executiva de Apresentações" },
+      { name: "description", content: "Transforme apresentações longas em versões executivas com rastreabilidade total. Upload, takeaways, curadoria e PPT final editável." },
     ],
   }),
 });
 
-function Index() {
-
-
+function LandingPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/10">
-      <Nav />
-      <main className="max-w-6xl mx-auto px-6">
-        {/* HERO */}
-        <section className="py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center border-b border-border">
-          <div className="lg:col-span-7 animate-in">
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary mb-6 block font-medium">
-              Diagnóstico Educacional · 2026
-            </span>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-balance leading-[0.95] mb-8">
-              Mapeie sua jornada na <span className="text-primary">Inteligência Artificial.</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-[50ch] text-pretty mb-10 leading-relaxed">
-              Comece com uma <strong>triagem rápida</strong> para entender seu nível atual.
-              Depois, faça a <strong>prova personalizada</strong> online e receba correção e
-              feedback gerados por IA na hora.
-
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="/perfil?start=true"
-                className="group relative overflow-hidden bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_30px_-5px_hsl(225_70%_45%/0.4)] dark:hover:shadow-[0_0_30px_-5px_hsl(225_70%_60%/0.4)] active:scale-[0.97] cursor-pointer"
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  Começar pela Triagem
-                  <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
-                </span>
-              </a>
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b border-border bg-card">
+        <div className="container mx-auto flex h-16 items-center justify-between px-6">
+          <div className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+              <Sparkles className="h-5 w-5 text-primary-foreground" />
             </div>
+            <span className="text-xl font-semibold text-foreground">StraightCut</span>
           </div>
-          <div className="lg:col-span-5 animate-in [animation-delay:150ms]">
-            <div className="w-full aspect-[4/5] bg-foreground text-background rounded-2xl p-8 shadow-2xl flex flex-col justify-between">
-              <div>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-background/60">
-                  Como funciona
-                </span>
-                <ol className="mt-6 space-y-5">
-                  <li className="flex gap-4 items-start">
-                    <span className="font-mono text-2xl font-bold text-primary">01</span>
-                    <div>
-                      <p className="font-bold">Triagem rápida (10 perguntas)</p>
-                      <p className="text-xs text-background/60 mt-1">Mapeia seu nível atual de IA</p>
-                    </div>
-                  </li>
-                  <li className="flex gap-4 items-start">
-                    <span className="font-mono text-2xl font-bold text-primary">02</span>
-                    <div>
-                      <p className="font-bold">Prova de IA</p>
-                      <p className="text-xs text-background/60 mt-1">Personalizada e respondida online</p>
-                    </div>
-                  </li>
-                  <li className="flex gap-4 items-start">
-                    <span className="font-mono text-2xl font-bold text-primary">03</span>
-                    <div>
-                      <p className="font-bold">Correção + feedback da IA</p>
-                      <p className="text-xs text-background/60 mt-1">Pontuação, lacunas e próximos passos</p>
-                    </div>
-                  </li>
-                </ol>
+          <Link to="/auth">
+            <Button>Entrar</Button>
+          </Link>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 py-20">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="text-balance text-5xl font-bold leading-tight text-foreground sm:text-6xl">
+            Sintetize apresentações executivas de forma eficiente
+          </h1>
+          <p className="mt-6 text-pretty text-xl leading-relaxed text-muted-foreground">
+            Upload → Takeaways → Curadoria → PPT final editável com rastreabilidade total
+          </p>
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link to="/auth">
+              <Button size="lg" className="gap-2">
+                Entrar
+                <ArrowRight className="h-5 w-5" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="border-t border-border bg-card py-20">
+        <div className="container mx-auto px-6">
+          <h2 className="mb-12 text-center text-3xl font-semibold text-foreground">Como funciona</h2>
+          <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <Card className="border-border bg-background p-6">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                <FileUp className="h-6 w-6 text-primary" />
               </div>
-              <p className="text-xs text-background/40 italic border-t border-background/10 pt-4">
-                "Mapeamos o ponto de partida para construir a jornada certa."
+              <h3 className="mb-2 text-lg font-semibold text-foreground">1. Upload de PPT/PDF</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Faça upload da sua apresentação em PowerPoint ou PDF. O sistema processa automaticamente.
               </p>
-            </div>
-          </div>
-        </section>
+            </Card>
 
-      </main>
-      <Footer />
+            <Card className="border-border bg-background p-6">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-green-500/10">
+                <Sparkles className="h-6 w-6 text-green-600" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-foreground">2. Takeaways por slide</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                IA extrai os principais pontos de cada slide, consolidando insights com score e evidência.
+              </p>
+            </Card>
+
+            <Card className="border-border bg-background p-6">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10">
+                <Users className="h-6 w-6 text-amber-600" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-foreground">3. Curadoria + narrativa</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Organize takeaways em grupos, ajuste a narrativa e use comandos conversacionais.
+              </p>
+            </Card>
+
+            <Card className="border-border bg-background p-6">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-red-500/10">
+                <FileText className="h-6 w-6 text-red-600" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-foreground">4. Export PPTX editável</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Baixe o deck final em PowerPoint totalmente editável, com todas as evidências rastreadas.
+              </p>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-border py-8">
+        <div className="container mx-auto px-6 text-center">
+          <p className="text-sm text-muted-foreground">
+            <strong className="text-foreground">Confidencialidade:</strong> Não envie materiais sensíveis sem
+            autorização prévia.
+          </p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Contato: <span className="text-foreground">suporte@agentetakeaways.com</span>
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
