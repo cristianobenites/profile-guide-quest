@@ -14,7 +14,7 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
   head: () => ({
     meta: [
-      { title: "Entrar · StraightCut" },
+      { title: "Entrar v2 · StraightCut" },
       { name: "description", content: "Acesse sua conta do StraightCut" },
     ],
   }),
