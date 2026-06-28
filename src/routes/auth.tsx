@@ -45,10 +45,11 @@ function AuthInner() {
 
     try {
       if (isLogin) {
-        const { error: signInError } = await supabase.auth.signInWithPassword({
+        const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
+        console.log("[login] result", { data: signInData, error: signInError });
         if (signInError) {
           setError(signInError.message);
           return;
