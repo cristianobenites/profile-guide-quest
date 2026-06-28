@@ -14,6 +14,113 @@ export type Database = {
   }
   public: {
     Tables: {
+      extracted_assets: {
+        Row: {
+          created_at: string
+          h: number | null
+          id: string
+          label: string | null
+          meta: Json
+          project_id: string
+          role: string
+          slide_id: string | null
+          storage_url: string | null
+          type: string
+          w: number | null
+          x: number | null
+          y: number | null
+        }
+        Insert: {
+          created_at?: string
+          h?: number | null
+          id?: string
+          label?: string | null
+          meta?: Json
+          project_id: string
+          role?: string
+          slide_id?: string | null
+          storage_url?: string | null
+          type: string
+          w?: number | null
+          x?: number | null
+          y?: number | null
+        }
+        Update: {
+          created_at?: string
+          h?: number | null
+          id?: string
+          label?: string | null
+          meta?: Json
+          project_id?: string
+          role?: string
+          slide_id?: string | null
+          storage_url?: string | null
+          type?: string
+          w?: number | null
+          x?: number | null
+          y?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "extracted_assets_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "extracted_assets_slide_id_fkey"
+            columns: ["slide_id"]
+            isOneToOne: false
+            referencedRelation: "slides"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pipeline_runs: {
+        Row: {
+          created_at: string
+          current_step: string
+          error: string | null
+          id: string
+          progress: number
+          project_id: string
+          status: string
+          step_history: Json
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          current_step?: string
+          error?: string | null
+          id?: string
+          progress?: number
+          project_id: string
+          status?: string
+          step_history?: Json
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          current_step?: string
+          error?: string | null
+          id?: string
+          progress?: number
+          project_id?: string
+          status?: string
+          step_history?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pipeline_runs_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -52,6 +159,41 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      project_versions: {
+        Row: {
+          created_at: string
+          id: string
+          label: string
+          project_id: string
+          snapshot: Json
+          summary: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          label: string
+          project_id: string
+          snapshot?: Json
+          summary?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          label?: string
+          project_id?: string
+          snapshot?: Json
+          summary?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_versions_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       projects: {
         Row: {
@@ -109,6 +251,98 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      slides: {
+        Row: {
+          created_at: string
+          extracted_text: string | null
+          id: string
+          index: number
+          preview_image_url: string | null
+          project_id: string
+          title_guess: string | null
+        }
+        Insert: {
+          created_at?: string
+          extracted_text?: string | null
+          id?: string
+          index: number
+          preview_image_url?: string | null
+          project_id: string
+          title_guess?: string | null
+        }
+        Update: {
+          created_at?: string
+          extracted_text?: string | null
+          id?: string
+          index?: number
+          preview_image_url?: string | null
+          project_id?: string
+          title_guess?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "slides_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      takeaways: {
+        Row: {
+          created_at: string
+          evidence_status: string
+          flags: Json
+          id: string
+          meta: Json
+          project_id: string
+          score: number
+          slide_id: string | null
+          text: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          evidence_status?: string
+          flags?: Json
+          id?: string
+          meta?: Json
+          project_id: string
+          score?: number
+          slide_id?: string | null
+          text: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          evidence_status?: string
+          flags?: Json
+          id?: string
+          meta?: Json
+          project_id?: string
+          score?: number
+          slide_id?: string | null
+          text?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "takeaways_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "takeaways_slide_id_fkey"
+            columns: ["slide_id"]
+            isOneToOne: false
+            referencedRelation: "slides"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
