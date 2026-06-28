@@ -14,7 +14,14 @@ import { Route as TecnicoRouteImport } from './routes/tecnico'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as DesafioRouteImport } from './routes/desafio'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
+import { Route as AuthenticatedAppProjectsRouteImport } from './routes/_authenticated/app/projects'
+import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app/profile'
+import { Route as AuthenticatedAppProjectsNewRouteImport } from './routes/_authenticated/app/projects/new'
+import { Route as AuthenticatedAppProjectsIdRouteImport } from './routes/_authenticated/app/projects/$id'
 
 const UploadRoute = UploadRouteImport.update({
   id: '/upload',
@@ -41,60 +48,143 @@ const DesafioRoute = DesafioRouteImport.update({
   path: '/desafio',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAppProjectsRoute =
+  AuthenticatedAppProjectsRouteImport.update({
+    id: '/projects',
+    path: '/projects',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppProfileRoute = AuthenticatedAppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppProjectsNewRoute =
+  AuthenticatedAppProjectsNewRouteImport.update({
+    id: '/new',
+    path: '/new',
+    getParentRoute: () => AuthenticatedAppProjectsRoute,
+  } as any)
+const AuthenticatedAppProjectsIdRoute =
+  AuthenticatedAppProjectsIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedAppProjectsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/desafio': typeof DesafioRoute
   '/perfil': typeof PerfilRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tecnico': typeof TecnicoRoute
   '/upload': typeof UploadRoute
+  '/app': typeof AuthenticatedAppRouteWithChildren
+  '/app/profile': typeof AuthenticatedAppProfileRoute
+  '/app/projects': typeof AuthenticatedAppProjectsRouteWithChildren
+  '/app/projects/$id': typeof AuthenticatedAppProjectsIdRoute
+  '/app/projects/new': typeof AuthenticatedAppProjectsNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/desafio': typeof DesafioRoute
   '/perfil': typeof PerfilRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tecnico': typeof TecnicoRoute
   '/upload': typeof UploadRoute
+  '/app': typeof AuthenticatedAppRouteWithChildren
+  '/app/profile': typeof AuthenticatedAppProfileRoute
+  '/app/projects': typeof AuthenticatedAppProjectsRouteWithChildren
+  '/app/projects/$id': typeof AuthenticatedAppProjectsIdRoute
+  '/app/projects/new': typeof AuthenticatedAppProjectsNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/desafio': typeof DesafioRoute
   '/perfil': typeof PerfilRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tecnico': typeof TecnicoRoute
   '/upload': typeof UploadRoute
+  '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
+  '/_authenticated/app/projects': typeof AuthenticatedAppProjectsRouteWithChildren
+  '/_authenticated/app/projects/$id': typeof AuthenticatedAppProjectsIdRoute
+  '/_authenticated/app/projects/new': typeof AuthenticatedAppProjectsNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/desafio'
     | '/perfil'
     | '/sitemap.xml'
     | '/tecnico'
     | '/upload'
+    | '/app'
+    | '/app/profile'
+    | '/app/projects'
+    | '/app/projects/$id'
+    | '/app/projects/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/desafio' | '/perfil' | '/sitemap.xml' | '/tecnico' | '/upload'
+  to:
+    | '/'
+    | '/auth'
+    | '/desafio'
+    | '/perfil'
+    | '/sitemap.xml'
+    | '/tecnico'
+    | '/upload'
+    | '/app'
+    | '/app/profile'
+    | '/app/projects'
+    | '/app/projects/$id'
+    | '/app/projects/new'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/desafio'
     | '/perfil'
     | '/sitemap.xml'
     | '/tecnico'
     | '/upload'
+    | '/_authenticated/app'
+    | '/_authenticated/app/profile'
+    | '/_authenticated/app/projects'
+    | '/_authenticated/app/projects/$id'
+    | '/_authenticated/app/projects/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   DesafioRoute: typeof DesafioRoute
   PerfilRoute: typeof PerfilRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -139,6 +229,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DesafioRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -146,11 +250,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/app': {
+      id: '/_authenticated/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AuthenticatedAppRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/app/projects': {
+      id: '/_authenticated/app/projects'
+      path: '/projects'
+      fullPath: '/app/projects'
+      preLoaderRoute: typeof AuthenticatedAppProjectsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/profile': {
+      id: '/_authenticated/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AuthenticatedAppProfileRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/projects/new': {
+      id: '/_authenticated/app/projects/new'
+      path: '/new'
+      fullPath: '/app/projects/new'
+      preLoaderRoute: typeof AuthenticatedAppProjectsNewRouteImport
+      parentRoute: typeof AuthenticatedAppProjectsRoute
+    }
+    '/_authenticated/app/projects/$id': {
+      id: '/_authenticated/app/projects/$id'
+      path: '/$id'
+      fullPath: '/app/projects/$id'
+      preLoaderRoute: typeof AuthenticatedAppProjectsIdRouteImport
+      parentRoute: typeof AuthenticatedAppProjectsRoute
+    }
   }
 }
 
+interface AuthenticatedAppProjectsRouteChildren {
+  AuthenticatedAppProjectsIdRoute: typeof AuthenticatedAppProjectsIdRoute
+  AuthenticatedAppProjectsNewRoute: typeof AuthenticatedAppProjectsNewRoute
+}
+
+const AuthenticatedAppProjectsRouteChildren: AuthenticatedAppProjectsRouteChildren =
+  {
+    AuthenticatedAppProjectsIdRoute: AuthenticatedAppProjectsIdRoute,
+    AuthenticatedAppProjectsNewRoute: AuthenticatedAppProjectsNewRoute,
+  }
+
+const AuthenticatedAppProjectsRouteWithChildren =
+  AuthenticatedAppProjectsRoute._addFileChildren(
+    AuthenticatedAppProjectsRouteChildren,
+  )
+
+interface AuthenticatedAppRouteChildren {
+  AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
+  AuthenticatedAppProjectsRoute: typeof AuthenticatedAppProjectsRouteWithChildren
+}
+
+const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
+  AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
+  AuthenticatedAppProjectsRoute: AuthenticatedAppProjectsRouteWithChildren,
+}
+
+const AuthenticatedAppRouteWithChildren =
+  AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   DesafioRoute: DesafioRoute,
   PerfilRoute: PerfilRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
@@ -160,13 +341,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
