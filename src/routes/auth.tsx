@@ -40,15 +40,17 @@ function AuthInner() {
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("[handleEmailAuth] start", { email, isLogin, passwordLength: password.length });
     setIsLoading(true);
     setError("");
 
     try {
       if (isLogin) {
-        const { error: signInError } = await supabase.auth.signInWithPassword({
+        const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
+        console.log("[login] result", { data: signInData, error: signInError });
         if (signInError) {
           setError(signInError.message);
           return;
@@ -139,7 +141,7 @@ function AuthInner() {
             />
           </div>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button type="submit" className="w-full" disabled={isLoading} onClick={() => console.log("[submit button clicked]")}>
             {isLoading ? "Verificando..." : isLogin ? "Entrar" : "Criar conta"}
           </Button>
         </form>
