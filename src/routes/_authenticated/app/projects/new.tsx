@@ -103,7 +103,7 @@ function NewProjectPage() {
           },
           confidential: isConfidential,
           output_mode: outputMode,
-          style_preset: outputMode === "PPT_EDITABLE_STYLED_BETA" ? stylePreset : null,
+          style_preset: null,
           aggressiveness,
           model_provider: modelProvider,
         },
