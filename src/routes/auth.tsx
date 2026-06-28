@@ -141,7 +141,7 @@ function AuthInner() {
             />
           </div>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button type="submit" className="w-full" disabled={isLoading} onClick={() => console.log("[submit button clicked]")}>
             {isLoading ? "Verificando..." : isLogin ? "Entrar" : "Criar conta"}
           </Button>
         </form>
