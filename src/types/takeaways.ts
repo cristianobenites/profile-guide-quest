@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type ProjectStatus = "DRAFT" | "PROCESSING" | "READY" | "FAILED";
 export type ModelProvider = "GEMINI" | "OPENAI";
 export type OutputMode = "PPT_EDITABLE" | "PPT_EDITABLE_STYLED_BETA";
@@ -10,7 +11,7 @@ export interface Project {
   owner_id: string;
   name: string;
   status: ProjectStatus;
-  context: Record<string, unknown>;
+  context: Record<string, any>;
   confidential: boolean;
   model_provider: ModelProvider;
   output_mode: OutputMode;
@@ -30,7 +31,7 @@ export interface Profile {
   email?: string | null;
   role: Role;
   mfa_enabled: boolean;
-  preferences: Record<string, unknown>;
+  preferences: Record<string, any>;
   tenant_id?: string | null;
   created_at: string;
   updated_at: string;
