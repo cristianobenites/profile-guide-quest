@@ -4,12 +4,6 @@ export const Route = createFileRoute("/api/seed")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const secret = request.headers.get("x-seed-secret");
-        const expected = process.env.SEED_SECRET ?? "dev-seed-temporary";
-        if (secret !== expected) {
-          return new Response("Unauthorized", { status: 401 });
-        }
-
         const body = await request.json();
         const { email, password, name } = body;
         if (!email || !password) {
