@@ -22,6 +22,7 @@ import { Route as AuthenticatedAppProjectsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app/profile'
 import { Route as AuthenticatedAppProjectsNewRouteImport } from './routes/_authenticated/app/projects/new'
 import { Route as AuthenticatedAppProjectsIdRouteImport } from './routes/_authenticated/app/projects/$id'
+import { Route as AuthenticatedAppProjectsIdProcessingRouteImport } from './routes/_authenticated/app/projects/$id.processing'
 
 const UploadRoute = UploadRouteImport.update({
   id: '/upload',
@@ -90,6 +91,12 @@ const AuthenticatedAppProjectsIdRoute =
     path: '/$id',
     getParentRoute: () => AuthenticatedAppProjectsRoute,
   } as any)
+const AuthenticatedAppProjectsIdProcessingRoute =
+  AuthenticatedAppProjectsIdProcessingRouteImport.update({
+    id: '/processing',
+    path: '/processing',
+    getParentRoute: () => AuthenticatedAppProjectsIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -102,8 +109,9 @@ export interface FileRoutesByFullPath {
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/projects': typeof AuthenticatedAppProjectsRouteWithChildren
-  '/app/projects/$id': typeof AuthenticatedAppProjectsIdRoute
+  '/app/projects/$id': typeof AuthenticatedAppProjectsIdRouteWithChildren
   '/app/projects/new': typeof AuthenticatedAppProjectsNewRoute
+  '/app/projects/$id/processing': typeof AuthenticatedAppProjectsIdProcessingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -116,8 +124,9 @@ export interface FileRoutesByTo {
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/projects': typeof AuthenticatedAppProjectsRouteWithChildren
-  '/app/projects/$id': typeof AuthenticatedAppProjectsIdRoute
+  '/app/projects/$id': typeof AuthenticatedAppProjectsIdRouteWithChildren
   '/app/projects/new': typeof AuthenticatedAppProjectsNewRoute
+  '/app/projects/$id/processing': typeof AuthenticatedAppProjectsIdProcessingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -132,8 +141,9 @@ export interface FileRoutesById {
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/projects': typeof AuthenticatedAppProjectsRouteWithChildren
-  '/_authenticated/app/projects/$id': typeof AuthenticatedAppProjectsIdRoute
+  '/_authenticated/app/projects/$id': typeof AuthenticatedAppProjectsIdRouteWithChildren
   '/_authenticated/app/projects/new': typeof AuthenticatedAppProjectsNewRoute
+  '/_authenticated/app/projects/$id/processing': typeof AuthenticatedAppProjectsIdProcessingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/app/projects'
     | '/app/projects/$id'
     | '/app/projects/new'
+    | '/app/projects/$id/processing'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/app/projects'
     | '/app/projects/$id'
     | '/app/projects/new'
+    | '/app/projects/$id/processing'
   id:
     | '__root__'
     | '/'
@@ -179,6 +191,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/projects'
     | '/_authenticated/app/projects/$id'
     | '/_authenticated/app/projects/new'
+    | '/_authenticated/app/projects/$id/processing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -285,17 +298,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppProjectsIdRouteImport
       parentRoute: typeof AuthenticatedAppProjectsRoute
     }
+    '/_authenticated/app/projects/$id/processing': {
+      id: '/_authenticated/app/projects/$id/processing'
+      path: '/processing'
+      fullPath: '/app/projects/$id/processing'
+      preLoaderRoute: typeof AuthenticatedAppProjectsIdProcessingRouteImport
+      parentRoute: typeof AuthenticatedAppProjectsIdRoute
+    }
   }
 }
 
+interface AuthenticatedAppProjectsIdRouteChildren {
+  AuthenticatedAppProjectsIdProcessingRoute: typeof AuthenticatedAppProjectsIdProcessingRoute
+}
+
+const AuthenticatedAppProjectsIdRouteChildren: AuthenticatedAppProjectsIdRouteChildren =
+  {
+    AuthenticatedAppProjectsIdProcessingRoute:
+      AuthenticatedAppProjectsIdProcessingRoute,
+  }
+
+const AuthenticatedAppProjectsIdRouteWithChildren =
+  AuthenticatedAppProjectsIdRoute._addFileChildren(
+    AuthenticatedAppProjectsIdRouteChildren,
+  )
+
 interface AuthenticatedAppProjectsRouteChildren {
-  AuthenticatedAppProjectsIdRoute: typeof AuthenticatedAppProjectsIdRoute
+  AuthenticatedAppProjectsIdRoute: typeof AuthenticatedAppProjectsIdRouteWithChildren
   AuthenticatedAppProjectsNewRoute: typeof AuthenticatedAppProjectsNewRoute
 }
 
 const AuthenticatedAppProjectsRouteChildren: AuthenticatedAppProjectsRouteChildren =
   {
-    AuthenticatedAppProjectsIdRoute: AuthenticatedAppProjectsIdRoute,
+    AuthenticatedAppProjectsIdRoute:
+      AuthenticatedAppProjectsIdRouteWithChildren,
     AuthenticatedAppProjectsNewRoute: AuthenticatedAppProjectsNewRoute,
   }
 
