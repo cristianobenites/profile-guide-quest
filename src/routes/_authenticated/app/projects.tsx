@@ -13,7 +13,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getProjects } from "@/lib/projects.functions";
-import type { ProjectStatus } from "@/types/takeaways";
+import type { Project, ProjectStatus } from "@/types/takeaways";
 
 export const Route = createFileRoute("/_authenticated/app/projects")({
   component: ProjectsPage,
@@ -30,7 +30,7 @@ function ProjectsPage() {
   const [statusFilter, setStatusFilter] = useState<ProjectStatus | "ALL">("ALL");
   const navigate = useNavigate();
 
-  const { data: projects = [], isLoading: isLoadingProjects } = useQuery({
+  const { data: projects = [], isLoading: isLoadingProjects } = useQuery<Project[]>({
     queryKey: ["projects", statusFilter, searchQuery],
     queryFn: () => getProjects({ data: { status: statusFilter, q: searchQuery } }),
   });
