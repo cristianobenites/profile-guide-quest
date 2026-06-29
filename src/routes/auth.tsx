@@ -40,17 +40,15 @@ function AuthInner() {
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
     setIsLoading(true);
     setError("");
 
     try {
       if (isLogin) {
-        const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+        const { error: signInError } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
-        console.log("[login] result", { data: signInData, error: signInError });
         if (signInError) {
           setError(signInError.message);
           return;
