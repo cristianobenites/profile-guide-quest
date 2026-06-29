@@ -40,7 +40,7 @@ function AuthInner() {
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("[handleEmailAuth] start", { email, isLogin, passwordLength: password.length });
+    try {
     setIsLoading(true);
     setError("");
 
