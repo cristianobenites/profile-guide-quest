@@ -17,7 +17,6 @@ import { Route as DesafioRouteImport } from './routes/desafio'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiSeedRouteImport } from './routes/api/seed'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAppProjectsRouteImport } from './routes/_authenticated/app/projects'
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app/profile'
@@ -64,11 +63,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiSeedRoute = ApiSeedRouteImport.update({
-  id: '/api/seed',
-  path: '/api/seed',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -113,7 +107,6 @@ export interface FileRoutesByFullPath {
   '/tecnico': typeof TecnicoRoute
   '/upload': typeof UploadRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
-  '/api/seed': typeof ApiSeedRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/projects': typeof AuthenticatedAppProjectsRouteWithChildren
   '/app/projects/$id': typeof AuthenticatedAppProjectsIdRouteWithChildren
@@ -129,7 +122,6 @@ export interface FileRoutesByTo {
   '/tecnico': typeof TecnicoRoute
   '/upload': typeof UploadRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
-  '/api/seed': typeof ApiSeedRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/projects': typeof AuthenticatedAppProjectsRouteWithChildren
   '/app/projects/$id': typeof AuthenticatedAppProjectsIdRouteWithChildren
@@ -147,7 +139,6 @@ export interface FileRoutesById {
   '/tecnico': typeof TecnicoRoute
   '/upload': typeof UploadRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
-  '/api/seed': typeof ApiSeedRoute
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/projects': typeof AuthenticatedAppProjectsRouteWithChildren
   '/_authenticated/app/projects/$id': typeof AuthenticatedAppProjectsIdRouteWithChildren
@@ -165,7 +156,6 @@ export interface FileRouteTypes {
     | '/tecnico'
     | '/upload'
     | '/app'
-    | '/api/seed'
     | '/app/profile'
     | '/app/projects'
     | '/app/projects/$id'
@@ -181,7 +171,6 @@ export interface FileRouteTypes {
     | '/tecnico'
     | '/upload'
     | '/app'
-    | '/api/seed'
     | '/app/profile'
     | '/app/projects'
     | '/app/projects/$id'
@@ -198,7 +187,6 @@ export interface FileRouteTypes {
     | '/tecnico'
     | '/upload'
     | '/_authenticated/app'
-    | '/api/seed'
     | '/_authenticated/app/profile'
     | '/_authenticated/app/projects'
     | '/_authenticated/app/projects/$id'
@@ -215,7 +203,6 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TecnicoRoute: typeof TecnicoRoute
   UploadRoute: typeof UploadRoute
-  ApiSeedRoute: typeof ApiSeedRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -274,13 +261,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/seed': {
-      id: '/api/seed'
-      path: '/api/seed'
-      fullPath: '/api/seed'
-      preLoaderRoute: typeof ApiSeedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/app': {
@@ -393,7 +373,6 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TecnicoRoute: TecnicoRoute,
   UploadRoute: UploadRoute,
-  ApiSeedRoute: ApiSeedRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
